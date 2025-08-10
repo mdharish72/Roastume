@@ -1,13 +1,14 @@
 import AuthSessionProvider from "@/components/session-provider";
+import { Analytics } from "@vercel/analytics/next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.dev",
+  title: "Roastume",
+  description: "A platform for roasting resumes.",
+  generator: "Roastume",
 };
 
 export default function RootLayout({
@@ -28,6 +29,7 @@ html {
       </head>
       <body>
         <AuthSessionProvider>{children}</AuthSessionProvider>
+        <Analytics />
       </body>
     </html>
   );
