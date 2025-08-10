@@ -1,15 +1,12 @@
 "use client";
 
 import { uploadFile } from "@/lib/api";
+import { body, display } from "@/lib/fonts";
 import { useRoastume, type Resume } from "@/lib/store";
 import { cn } from "@/lib/utils";
-import { Bangers, Kalam } from "next/font/google";
 import { useRef, useState } from "react";
 import { FaTimes, FaUpload } from "react-icons/fa";
 import { ComicCard } from "./comic-card";
-
-const body = Kalam({ subsets: ["latin"], weight: ["300", "400", "700"] });
-const display = Bangers({ subsets: ["latin"], weight: "400" });
 
 interface EditResumeModalProps {
   resume: Resume;

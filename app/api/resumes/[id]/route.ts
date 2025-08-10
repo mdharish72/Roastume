@@ -35,13 +35,26 @@ export async function GET(
       return NextResponse.json({ error: "Resume not found" }, { status: 404 });
     }
 
+    // Compute exact counts to avoid any drift
+    const { count: likesExact } = await supabase
+      .from("likes")
+      .select("id", { count: "exact", head: true })
+      .eq("resume_id", id);
+
+    const { count: commentsExact } = await supabase
+      .from("comments")
+      .select("id", { count: "exact", head: true })
+      .eq("resume_id", id)
+      .is("parent_id", null);
+
     // Transform data to match frontend format
     const transformedResume = {
       id: resume.id,
       name: resume.name,
       blurb: resume.blurb,
-      likes: resume.likes_count,
+      likes: likesExact ?? resume.likes_count,
       comments: [], // Will be loaded separately
+      commentsCount: commentsExact ?? resume.comments_count,
       fileUrl: resume.file_url,
       fileType: resume.file_type,
       ownerId: resume.user_id,
@@ -127,13 +140,26 @@ export async function PUT(
       );
     }
 
+    // Compute exact counts to avoid any drift
+    const { count: likesExact2 } = await supabase
+      .from("likes")
+      .select("id", { count: "exact", head: true })
+      .eq("resume_id", id);
+
+    const { count: commentsExact2 } = await supabase
+      .from("comments")
+      .select("id", { count: "exact", head: true })
+      .eq("resume_id", id)
+      .is("parent_id", null);
+
     // Transform data to match frontend format
     const transformedResume = {
       id: updatedResume.id,
       name: updatedResume.name,
       blurb: updatedResume.blurb,
-      likes: updatedResume.likes_count,
+      likes: likesExact2 ?? updatedResume.likes_count,
       comments: [], // Will be loaded separately
+      commentsCount: commentsExact2 ?? updatedResume.comments_count,
       fileUrl: updatedResume.file_url,
       fileType: updatedResume.file_type,
       ownerId: updatedResume.user_id,

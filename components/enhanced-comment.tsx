@@ -1,9 +1,9 @@
 "use client";
 
+import { body, display } from "@/lib/fonts";
 import { useRoastume, type Comment } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
-import { Bangers, Kalam } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
 import {
@@ -17,9 +17,6 @@ import {
   FaTrash,
 } from "react-icons/fa";
 import { ComicCard } from "./comic-card";
-
-const body = Kalam({ subsets: ["latin"], weight: ["300", "400", "700"] });
-const display = Bangers({ subsets: ["latin"], weight: "400" });
 
 interface EnhancedCommentProps {
   comment: Comment;
@@ -50,6 +47,10 @@ export function EnhancedComment({
       await voteOnComment(comment.id, voteType);
     } catch (error) {
       console.error("Failed to vote:", error);
+      alert(
+        (error as any)?.message ||
+          "Failed to vote. You might need to sign in first."
+      );
     }
   };
 
@@ -65,6 +66,10 @@ export function EnhancedComment({
       setShowReplies(true);
     } catch (error) {
       console.error("Failed to add reply:", error);
+      alert(
+        (error as any)?.message ||
+          "Failed to add reply. You might need to sign in first."
+      );
     } finally {
       setIsSubmitting(false);
     }

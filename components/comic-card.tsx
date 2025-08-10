@@ -1,9 +1,6 @@
+import { body, display } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { Bangers, Kalam } from "next/font/google";
 import type React from "react";
-
-const display = Bangers({ subsets: ["latin"], weight: "400" });
-const body = Kalam({ subsets: ["latin"], weight: ["300", "400", "700"] });
 
 export function ComicCard({
   children,

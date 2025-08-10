@@ -59,22 +59,7 @@ export async function POST(
       );
     }
 
-    // Increment comments count
-    const { data: resume } = await supabase
-      .from("resumes")
-      .select("comments_count")
-      .eq("id", id)
-      .single();
-
-    const { error: updateError } = await supabase
-      .from("resumes")
-      .update({ comments_count: (resume?.comments_count || 0) + 1 })
-      .eq("id", id);
-
-    if (updateError) {
-      console.error("Error updating comments count:", updateError);
-      // Don't fail the request, just log the error
-    }
+    // Count is handled by DB trigger; no manual update here
 
     // Transform comment to match frontend format
     const transformedComment = {

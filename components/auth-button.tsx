@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { body } from "@/lib/fonts";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { cn } from "@/lib/utils";
 
 export default function AuthButton() {
   const { data: session, status } = useSession();
@@ -54,12 +56,22 @@ export default function AuthButton() {
             </Avatar>
             <div className="flex flex-col space-y-1 leading-none">
               {session.user?.name && (
-                <p className="font-bold text-[#2c2c2c] text-sm">
+                <p
+                  className={cn(
+                    body.className,
+                    "font-bold text-[#2c2c2c] text-sm"
+                  )}
+                >
                   {session.user.name}
                 </p>
               )}
               {session.user?.email && (
-                <p className="w-[180px] truncate text-xs text-[#2c2c2c]/70">
+                <p
+                  className={cn(
+                    body.className,
+                    "w-[180px] truncate text-xs text-[#2c2c2c]/70"
+                  )}
+                >
                   {session.user.email}
                 </p>
               )}

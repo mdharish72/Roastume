@@ -1,14 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { body, display } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { getProviders, signIn } from "next-auth/react";
-import { Bangers, Kalam } from "next/font/google";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-const display = Bangers({ subsets: ["latin"], weight: "400" });
-const body = Kalam({ subsets: ["latin"], weight: ["300", "400", "700"] });
 
 export default function SignIn() {
   const [providers, setProviders] = useState<any>(null);

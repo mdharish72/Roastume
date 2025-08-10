@@ -6,6 +6,7 @@ export interface ApiResume {
   blurb: string | null;
   likes: number;
   comments: ApiComment[];
+  commentsCount?: number;
   fileUrl: string | null;
   fileType: "image" | "pdf" | null;
   ownerId: string;

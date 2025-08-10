@@ -1,8 +1,8 @@
 "use client";
 
+import { body, display } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
-import { Bangers, Kalam } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -13,9 +13,6 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import AuthButton from "./auth-button";
-
-const display = Bangers({ subsets: ["latin"], weight: "400" });
-const body = Kalam({ subsets: ["latin"], weight: ["300", "400", "700"] });
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -1,7 +1,7 @@
 "use client";
 
+import { body, display } from "@/lib/fonts";
 import type React from "react";
-
 import { useRoastume } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
@@ -40,10 +40,17 @@ export function CommentList({ resumeId }: { resumeId: string }) {
   return (
     <div id="comments" className="grid gap-6">
       <h3
-        className={cn("text-2xl font-extrabold tracking-wide")}
+        className={cn(
+          display.className,
+          "text-2xl font-extrabold tracking-wide"
+        )}
         style={{ textShadow: "1px 1px 0 #2c2c2c" }}
       >
-        Comments ({resume.comments.length})
+        Comments (
+        {resume.comments.length > 0
+          ? resume.comments.length
+          : resume.commentsCount ?? 0}
+        )
       </h3>
 
       <form onSubmit={onSubmit} className="flex items-start gap-3">
@@ -65,7 +72,12 @@ export function CommentList({ resumeId }: { resumeId: string }) {
 
       <div className="space-y-4">
         {resume.comments.length === 0 && (
-          <p className="text-sm opacity-80 text-center py-8">
+          <p
+            className={cn(
+              body.className,
+              "text-sm opacity-80 text-center py-8"
+            )}
+          >
             No comments yet. Be the first to roast! 🔥
           </p>
         )}

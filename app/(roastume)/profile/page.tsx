@@ -3,10 +3,13 @@
 import { ComicCard } from "@/components/comic-card";
 import { EditResumeModal } from "@/components/edit-resume-modal";
 import { MyResumeCard } from "@/components/my-resume-card";
+import { body, display } from "@/lib/fonts";
 import { useRoastume, type Resume } from "@/lib/store";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { FaFileAlt, FaSignOutAlt } from "react-icons/fa";
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -19,12 +22,15 @@ export default function ProfilePage() {
       {!session && status !== "loading" && (
         <ComicCard className="p-6 text-center">
           <h2
-            className="text-2xl font-extrabold tracking-wide mb-4"
+            className={cn(
+              display.className,
+              "text-2xl font-extrabold tracking-wide mb-4"
+            )}
             style={{ textShadow: "1px 1px 0 #2c2c2c" }}
           >
             Sign In Required
           </h2>
-          <p className="text-lg mb-4">
+          <p className={cn(body.className, "text-lg mb-4")}>
             You need to sign in to view your profile and manage your resumes.
           </p>
           <button
@@ -47,28 +53,52 @@ export default function ProfilePage() {
         </div>
         <div className="flex-1">
           <h2
-            className="text-3xl font-extrabold tracking-wide"
+            className={cn(
+              display.className,
+              "text-3xl font-extrabold tracking-wide"
+            )}
             style={{ textShadow: "1px 1px 0 #2c2c2c" }}
           >
             {currentUser.name}
           </h2>
           {session?.user?.email && (
-            <p className="text-sm opacity-70 mt-1">{session.user.email}</p>
+            <p
+              className={cn(body.className, "text-sm opacity-70 mt-1")}
+              style={{
+                textShadow: "1px 1px 0 #2c2c2c",
+              }}
+            >
+              {session.user.email}
+            </p>
           )}
-          <p className="opacity-80 mt-2">Your uploaded resumes and activity</p>
+          <p
+            className={cn(body.className, "opacity-80 mt-2")}
+            style={{
+              textShadow: "1px 1px 0 #2c2c2c",
+            }}
+          >
+            Your uploaded resumes and activity
+          </p>
           {session && (
             <div className="mt-3 flex gap-4 text-sm flex-wrap">
-              <span className="bg-[#F2D5A3] px-3 py-1 rounded-full border-[2px] border-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] font-bold">
-                📄 {myResumes.length} Resume{myResumes.length !== 1 ? "s" : ""}
+              <span
+                className={cn(
+                  display.className,
+                  "bg-[#F2D5A3] px-3 py-1 flex items-center gap-2 rounded-full border-[2px] border-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] font-bold"
+                )}
+              >
+                <FaFileAlt className="mr-2" />
+                {myResumes.length} Resume{myResumes.length !== 1 ? "s" : ""}
               </span>
-              <span className="bg-[#F8E4C6] px-3 py-1 rounded-full border-[2px] border-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] font-bold">
-                ✅ Authenticated
-              </span>
+
               <button
                 onClick={() => signOut()}
-                className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-full border-[2px] border-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] font-bold hover:-translate-y-0.5 transition-transform"
+                className={cn(
+                  display.className,
+                  "bg-red-500 hover:bg-red-600 text-white px-3 py-1 flex items-center gap-2 rounded-full border-[2px] border-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] font-bold hover:-translate-y-0.5 transition-transform"
+                )}
               >
-                🚪 Sign Out
+                <FaSignOutAlt className="mr-2" /> Sign Out
               </button>
             </div>
           )}
@@ -76,9 +106,21 @@ export default function ProfilePage() {
       </ComicCard>
 
       <ComicCard className="grid gap-4">
-        <h3 className="text-xl font-extrabold tracking-wide">Your Resumes</h3>
+        <h3
+          className={cn(
+            display.className,
+            "text-xl font-extrabold tracking-wide"
+          )}
+        >
+          Your Resumes
+        </h3>
         {myResumes.length === 0 ? (
-          <p className="text-sm opacity-80">
+          <p
+            className={cn(body.className, "text-sm opacity-80")}
+            style={{
+              textShadow: "1px 1px 0 #2c2c2c",
+            }}
+          >
             You haven&apos;t uploaded anything yet. Try uploading one.
           </p>
         ) : (

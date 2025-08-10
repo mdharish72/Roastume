@@ -1,6 +1,7 @@
 "use client";
 
 import { ComicCard } from "@/components/comic-card";
+import { body, display } from "@/lib/fonts";
 import { CommentList } from "@/components/comment-list";
 import { useRoastume } from "@/lib/store";
 import { cn } from "@/lib/utils";
@@ -39,7 +40,10 @@ export default function ResumeDetail() {
           <FaArrowLeft className="h-5 w-5" /> Back
         </button>
         <h2
-          className={cn("ml-2 text-3xl font-extrabold tracking-wide")}
+          className={cn(
+            display.className,
+            "ml-2 text-3xl font-extrabold tracking-wide"
+          )}
           style={{ textShadow: "1px 1px 0 #2c2c2c" }}
         >
           {resume.name}
@@ -69,7 +73,9 @@ export default function ResumeDetail() {
               />
             )}
           </div>
-          <p className="text-sm leading-snug">{resume.blurb}</p>
+          <p className={cn(body.className, "text-sm leading-snug")}>
+            {resume.blurb}
+          </p>
         </ComicCard>
 
         <div className="grid gap-4">

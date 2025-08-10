@@ -32,5 +32,6 @@ export function transformApiResume(apiResume: ApiResume): Resume {
     fileType: apiResume.fileType || undefined,
     ownerId: apiResume.ownerId,
     createdAt: apiResume.createdAt,
+    commentsCount: apiResume.commentsCount,
   };
 }

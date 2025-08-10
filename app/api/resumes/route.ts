@@ -42,6 +42,7 @@ export async function GET() {
         blurb: resume.blurb,
         likes: resume.likes_count,
         comments: [], // Will be loaded separately
+        commentsCount: resume.comments_count,
         fileUrl: resume.file_url,
         fileType: resume.file_type,
         ownerId: resume.user_id,
@@ -120,6 +121,7 @@ export async function POST(request: NextRequest) {
       blurb: resume.blurb,
       likes: resume.likes_count,
       comments: [],
+      commentsCount: resume.comments_count,
       fileUrl: resume.file_url,
       fileType: resume.file_type,
       ownerId: resume.user_id,

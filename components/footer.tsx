@@ -1,13 +1,10 @@
 "use client";
 
+import { body, display } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { Bangers, Kalam } from "next/font/google";
 import Link from "next/link";
 import { AiOutlineHome, AiOutlineUpload, AiOutlineUser } from "react-icons/ai";
 import { FaGithub, FaHeart, FaTwitter } from "react-icons/fa";
-
-const display = Bangers({ subsets: ["latin"], weight: "400" });
-const body = Kalam({ subsets: ["latin"], weight: ["300", "400", "700"] });
 
 export default function Footer() {
   return (
@@ -44,7 +41,9 @@ export default function Footer() {
 
           {/* Navigation links */}
           <div className="text-center">
-            <h3 className={cn(body.className, "font-bold text-[#2c2c2c] mb-3")}>
+            <h3
+              className={cn(display.className, "font-bold text-[#2c2c2c] mb-3")}
+            >
               Quick Links
             </h3>
             <div className="flex justify-center gap-3">
@@ -83,7 +82,9 @@ export default function Footer() {
 
           {/* Community section */}
           <div className="text-center md:text-right">
-            <h3 className={cn(body.className, "font-bold text-[#2c2c2c] mb-3")}>
+            <h3
+              className={cn(display.className, "font-bold text-[#2c2c2c] mb-3")}
+            >
               Community
             </h3>
             <div className="flex justify-center md:justify-end gap-3 mb-4">
@@ -105,7 +106,12 @@ export default function Footer() {
         {/* Bottom section */}
         <div className="mt-8 pt-6 border-t-2 border-[#2c2c2c]/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className={cn(body.className, "text-sm text-[#2c2c2c]/70")}>
+            <p
+              className={cn(
+                body.className,
+                "text-sm text-[#2c2c2c]/70 flex-wrap "
+              )}
+            >
               © 2025 Roastume. Built for fun. Keep it kind! 🎯
             </p>
             <div className="flex gap-4 text-sm">

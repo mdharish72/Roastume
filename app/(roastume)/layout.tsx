@@ -1,15 +1,12 @@
 import AuthButton from "@/components/auth-button";
 import Footer from "@/components/footer";
+import { body, display } from "@/lib/fonts";
 import { RoastumeProvider } from "@/lib/store";
 import { cn } from "@/lib/utils";
-import { Home, Upload, UserCircle2 } from "lucide-react";
 import type { Metadata } from "next";
-import { Bangers, Kalam } from "next/font/google";
 import Link from "next/link";
 import type React from "react";
-
-const display = Bangers({ subsets: ["latin"], weight: "400" });
-const body = Kalam({ subsets: ["latin"], weight: ["300", "400", "700"] });
+import { FaHome, FaUpload, FaUserCircle } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: "Roastume - Roast Your Resume",
@@ -36,7 +33,7 @@ export default function RoastumeLayout({
                     "flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-[#EFD7B7] px-4 py-2 text-base font-bold shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
                   )}
                 >
-                  <Home className="h-5 w-5" />
+                  <FaHome className="h-5 w-5" />
                   Home
                 </Link>
                 <Link
@@ -46,7 +43,7 @@ export default function RoastumeLayout({
                     "flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-[#F8E4C6] px-4 py-2 text-base font-bold shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
                   )}
                 >
-                  <Upload className="h-5 w-5" />
+                  <FaUpload className="h-5 w-5" />
                   Upload Resume
                 </Link>
               </div>
@@ -101,7 +98,7 @@ export default function RoastumeLayout({
                   )}
                   aria-label="Profile"
                 >
-                  <UserCircle2 className="h-5 w-5" />
+                  <FaUserCircle className="h-5 w-5" />
                   Profile
                 </Link>
                 <AuthButton />

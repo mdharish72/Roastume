@@ -16,6 +16,7 @@ export type Resume = {
   blurb: string;
   likes: number;
   comments: Comment[];
+  commentsCount?: number;
   fileUrl?: string;
   fileType?: "image" | "pdf";
   ownerId?: string;
