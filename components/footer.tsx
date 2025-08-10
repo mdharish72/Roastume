@@ -4,7 +4,7 @@ import { body, display } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { AiOutlineHome, AiOutlineUpload, AiOutlineUser } from "react-icons/ai";
-import { FaGithub, FaHeart, FaTwitter } from "react-icons/fa";
+import { FaBullseye, FaGithub, FaHeart, FaTwitter } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -109,10 +109,11 @@ export default function Footer() {
             <p
               className={cn(
                 body.className,
-                "text-sm text-[#2c2c2c]/70 flex-wrap "
+                "text-sm text-[#2c2c2c]/70 flex-wrap flex items-center gap-2"
               )}
             >
-              © 2025 Roastume. Built for fun. Keep it kind! 🎯
+              © 2025 Roastume. Built for fun. Keep it kind!
+              <FaBullseye className="h-4 w-4 text-orange-500" />
             </p>
             <div className="flex gap-4 text-sm">
               <button
