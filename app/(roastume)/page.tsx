@@ -2,14 +2,31 @@
 
 import { ComicCard } from "@/components/comic-card";
 import { ResumeCard } from "@/components/resume-card";
+import { SearchBar } from "@/components/search-bar";
 import { body, display } from "@/lib/fonts";
 import { useRoastume } from "@/lib/store";
 import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { useMemo, useState } from "react";
 
 export default function Page() {
   const { data: session } = useSession();
   const { resumes, currentUser, loading, error } = useRoastume();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showWelcome, setShowWelcome] = useState(true);
+
+  // Filter resumes based on search query
+  const filteredResumes = useMemo(() => {
+    if (!searchQuery.trim()) return resumes;
+
+    const query = searchQuery.toLowerCase();
+    return resumes.filter(
+      (resume) =>
+        resume.name.toLowerCase().includes(query) ||
+        resume.blurb.toLowerCase().includes(query)
+    );
+  }, [resumes, searchQuery]);
 
   if (loading) {
     return (
@@ -45,12 +62,25 @@ export default function Page() {
 
   return (
     <div className="grid gap-6">
-      {session && (
-        <ComicCard className="p-4 bg-gradient-to-r from-[#F2D5A3] to-[#F8E4C6]">
+      {session && showWelcome && (
+        <ComicCard className="p-4 bg-gradient-to-r from-[#F2D5A3] to-[#F8E4C6] relative">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log("Close button clicked");
+              setShowWelcome(false);
+            }}
+            className="absolute top-2 right-2 p-2 rounded-full hover:bg-black/10 transition-colors z-10 border-2 border-transparent hover:border-[#2c2c2c]"
+            aria-label="Close welcome message"
+            type="button"
+          >
+            <X className="w-4 h-4 text-[#2c2c2c]" />
+          </button>
           <h2
             className={cn(
               display.className,
-              "text-xl font-extrabold tracking-wide mb-2"
+              "text-xl font-extrabold tracking-wide mb-2 pr-8"
             )}
             style={{
               textShadow: "2px 2px 0 rgba(44, 44, 44, 0.2)",
@@ -63,6 +93,32 @@ export default function Page() {
             Ready to get your resume roasted? Check out the latest submissions
             below or upload your own!
           </p>
+        </ComicCard>
+      )}
+
+      {/* Search Bar */}
+      {resumes.length > 0 && (
+        <ComicCard className="p-4">
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+            <div className="flex-1 w-full sm:w-auto">
+              <SearchBar
+                onSearch={setSearchQuery}
+                placeholder="Search resumes by title or description..."
+                className="w-full"
+              />
+            </div>
+            <div className="text-sm text-gray-600 whitespace-nowrap">
+              {searchQuery ? (
+                <span className={cn(body.className, "font-medium")}>
+                  {filteredResumes.length} of {resumes.length} resumes
+                </span>
+              ) : (
+                <span className={cn(body.className, "font-medium")}>
+                  {resumes.length} resume{resumes.length !== 1 ? "s" : ""}
+                </span>
+              )}
+            </div>
+          </div>
         </ComicCard>
       )}
 
@@ -86,9 +142,28 @@ export default function Page() {
             </a>
           )}
         </ComicCard>
+      ) : filteredResumes.length === 0 && searchQuery ? (
+        <ComicCard className="p-8 text-center">
+          <h2 className={cn(display.className, "text-xl font-bold mb-2")}>
+            No Resumes Found
+          </h2>
+          <p className={cn(body.className, "text-sm opacity-80 mb-4")}>
+            No resumes match your search for "{searchQuery}". Try a different
+            search term!
+          </p>
+          <button
+            onClick={() => setSearchQuery("")}
+            className={cn(
+              body.className,
+              "rounded-full border-[3px] border-[#2c2c2c] bg-[#EBDDBF] px-4 py-2 font-bold shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
+            )}
+          >
+            Clear Search
+          </button>
+        </ComicCard>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {resumes.map((r) => (
+          {filteredResumes.map((r) => (
             <ResumeCard key={r.id} resume={r} />
           ))}
         </div>

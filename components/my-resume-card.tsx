@@ -44,11 +44,11 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
       variant="cream"
       fontStyle="none"
       shadow="large"
-      className="grid gap-4 border-[4px] border-[#2c2c2c] rounded-2xl p-6 aspect-[16/10] w-full max-w-md"
+      className="flex flex-col gap-4 border-[4px] border-[#2c2c2c] rounded-2xl p-4 sm:p-6 w-full"
     >
       {/* Header section with avatar and info */}
-      <div className="flex items-start gap-4 mb-2">
-        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border-[4px] border-[#2c2c2c] bg-white">
+      <div className="flex items-start gap-3 sm:gap-4">
+        <div className="relative h-12 w-12 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-full border-[3px] sm:border-[4px] border-[#2c2c2c] bg-white">
           <Image
             src={
               resume.avatar ||
@@ -63,7 +63,7 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
           <h3
             className={cn(
               display.className,
-              "text-3xl sm:text-4xl font-normal tracking-wide text-[#2c2c2c] mb-2"
+              "text-lg sm:text-2xl lg:text-3xl font-normal tracking-wide text-[#2c2c2c] mb-1 sm:mb-2 break-words"
             )}
             style={{
               textShadow: "2px 2px 0 rgba(44, 44, 44, 0.2)",
@@ -75,14 +75,14 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
           <p
             className={cn(
               body.className,
-              "text-base leading-relaxed text-[#2c2c2c] italic"
+              "text-sm sm:text-base leading-relaxed text-[#2c2c2c] italic line-clamp-2"
             )}
           >
             {resume.blurb || "No description provided."}
           </p>
-          <div className="mt-3 flex items-center gap-2 text-sm text-[#2c2c2c]/70">
-            <span className="flex ">
-              <FaCalendar className="mr-1" />{" "}
+          <div className="mt-2 flex items-center gap-2 text-xs sm:text-sm text-[#2c2c2c]/70">
+            <span className="flex items-center">
+              <FaCalendar className="mr-1 w-3 h-3" />
               {new Date(resume.createdAt).toLocaleDateString()}
             </span>
           </div>
@@ -90,76 +90,85 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
       </div>
 
       {/* Action buttons */}
-      <div className="flex items-center gap-2 mt-auto pt-3 border-t-2 border-[#2c2c2c]/20">
-        <button
-          onClick={async () => {
-            try {
-              await like(resume.id);
-            } catch (error) {
-              console.error("Failed to like resume:", error);
-            }
-          }}
-          className={cn(
-            display.className,
-            "flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-green-400 hover:bg-green-500 px-4 py-2 text-sm font-normal shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
-          )}
-          aria-label="Like this resume"
-        >
-          <AiOutlineLike className="h-4 w-4" />
-          <span className="rounded-full border-[2px] border-[#2c2c2c] bg-[#F2D5A3] px-2 py-0.5 text-xs font-normal">
-            {resume.likes}
-          </span>
-        </button>
+      <div className="pt-3 border-t-2 border-[#2c2c2c]/20">
+        {/* First row - Like, Comments, Edit */}
+        <div className="flex items-center justify-between  sm:gap-2 mb-2">
+          <button
+            onClick={async () => {
+              try {
+                await like(resume.id);
+              } catch (error) {
+                console.error("Failed to like resume:", error);
+              }
+            }}
+            className={cn(
+              display.className,
+              "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-green-400 hover:bg-green-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
+            )}
+            aria-label="Like this resume"
+          >
+            <AiOutlineLike className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="rounded-full border-[1px] sm:border-[2px] border-[#2c2c2c] bg-[#F2D5A3] px-1 sm:px-1.5 py-0.5 text-xs font-normal">
+              {resume.likes}
+            </span>
+          </button>
 
-        <Link
-          href={`/resume/${resume.id}#comments`}
-          className={cn(
-            display.className,
-            "flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-cyan-400 hover:bg-cyan-500 px-4 py-2 text-sm font-normal shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
-          )}
-        >
-          <AiOutlineComment className="h-4 w-4" />
-          <span className="rounded-full border-[2px] border-[#2c2c2c] bg-[#F2D5A3] px-2 py-0.5 text-xs font-normal">
-            {resume.comments.length}
-          </span>
-        </Link>
+          <Link
+            href={`/resume/${resume.id}#comments`}
+            className={cn(
+              display.className,
+              "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-cyan-400 hover:bg-cyan-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
+            )}
+          >
+            <AiOutlineComment className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="rounded-full border-[1px] sm:border-[2px] border-[#2c2c2c] bg-[#F2D5A3] px-1 sm:px-1.5 py-0.5 text-xs font-normal">
+              {resume.comments.length}
+            </span>
+          </Link>
 
-        <button
-          onClick={() => onEdit(resume)}
-          className={cn(
-            display.className,
-            "flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-blue-400 hover:bg-blue-500 px-4 py-2 text-sm font-normal shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
-          )}
-          aria-label="Edit this resume"
-        >
-          <FaEdit className="h-4 w-4" />
-          Edit
-        </button>
+          <button
+            onClick={() => onEdit(resume)}
+            className={cn(
+              display.className,
+              "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-blue-400 hover:bg-blue-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
+            )}
+            aria-label="Edit this resume"
+          >
+            <FaEdit className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">Edit</span>
+          </button>
+        </div>
 
-        <button
-          onClick={handleDelete}
-          disabled={isDeleting}
-          className={cn(
-            display.className,
-            "flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-red-400 hover:bg-red-500 px-4 py-2 text-sm font-normal shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c] disabled:opacity-50 disabled:cursor-not-allowed"
-          )}
-          aria-label="Delete this resume"
-        >
-          <FaTrash className="h-4 w-4" />
-          {isDeleting ? "..." : "Delete"}
-        </button>
+        {/* Second row - Delete and View */}
+        <div className="flex items-center justify-between gap-1.5 sm:gap-2">
+          <button
+            onClick={handleDelete}
+            disabled={isDeleting}
+            className={cn(
+              display.className,
+              "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-red-400 hover:bg-red-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c] disabled:opacity-50 disabled:cursor-not-allowed"
+            )}
+            aria-label="Delete this resume"
+          >
+            <FaTrash className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">
+              {isDeleting ? "..." : "Delete"}
+            </span>
+          </button>
 
-        <Link
-          href={`/resume/${resume.id}`}
-          className={cn(
-            display.className,
-            "flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-orange-400 hover:bg-orange-500 px-4 py-2 text-sm font-normal shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c] ml-auto"
-          )}
-          aria-label="View this resume"
-        >
-          <AiFillFire className="h-4 w-4" />
-          View
-        </Link>
+          <Link
+            href={`/resume/${resume.id}`}
+            className={cn(
+              display.className,
+              "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-orange-400 hover:bg-orange-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
+            )}
+            aria-label="View this resume"
+          >
+            <AiFillFire className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">View</span>
+            <span className="sm:hidden">👁️</span>
+          </Link>
+        </div>
       </div>
     </ComicCard>
   );

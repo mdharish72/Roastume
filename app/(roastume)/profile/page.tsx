@@ -5,9 +5,9 @@ import { EditResumeModal } from "@/components/edit-resume-modal";
 import { MyResumeCard } from "@/components/my-resume-card";
 import { body, display } from "@/lib/fonts";
 import { useRoastume, type Resume } from "@/lib/store";
+import { cn } from "@/lib/utils";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { FaFileAlt, FaSignOutAlt } from "react-icons/fa";
 
@@ -87,7 +87,7 @@ export default function ProfilePage() {
                   "bg-[#F2D5A3] px-3 py-1 flex items-center gap-2 rounded-full border-[2px] border-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] font-bold"
                 )}
               >
-                <FaFileAlt className="mr-2" />
+                <FaFileAlt className="mr-1" />
                 {myResumes.length} Resume{myResumes.length !== 1 ? "s" : ""}
               </span>
 
@@ -95,10 +95,10 @@ export default function ProfilePage() {
                 onClick={() => signOut()}
                 className={cn(
                   display.className,
-                  "bg-red-500 hover:bg-red-600 text-white px-3 py-1 flex items-center gap-2 rounded-full border-[2px] border-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] font-bold hover:-translate-y-0.5 transition-transform"
+                  "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-red-400 hover:bg-red-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c] disabled:opacity-50 disabled:cursor-not-allowed"
                 )}
               >
-                <FaSignOutAlt className="mr-2" /> Sign Out
+                <FaSignOutAlt className="mr-1" /> Sign Out
               </button>
             </div>
           )}
