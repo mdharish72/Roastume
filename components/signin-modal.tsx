@@ -113,7 +113,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                     onClick={() => handleSignIn(provider.id)}
                     className={cn(
                       display.className,
-                      "w-full bg-red-400 hover:bg-red-600 text-black font-bold py-3 px-4 border-[3px] border-[#2c2c2c] shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform text-lg rounded-full"
+                      "w-full bg-green-400 hover:bg-green-500 text-black font-bold py-3 px-4 border-[3px] border-[#2c2c2c] shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform text-lg rounded-full"
                     )}
                   >
                     Sign in with {provider.name}

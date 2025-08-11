@@ -95,7 +95,7 @@ export function CommentList({ resumeId }: { resumeId: string }) {
         {isLoadingComments ? (
           <p
             className={cn(
-              body.className,
+              display.className,
               "text-sm opacity-80 text-center py-8"
             )}
           >

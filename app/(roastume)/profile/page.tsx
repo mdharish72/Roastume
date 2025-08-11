@@ -62,21 +62,11 @@ export default function ProfilePage() {
             {currentUser.name}
           </h2>
           {session?.user?.email && (
-            <p
-              className={cn(body.className, "text-sm opacity-70 mt-1")}
-              style={{
-                textShadow: "1px 1px 0 #2c2c2c",
-              }}
-            >
+            <p className={cn(body.className, "text-sm opacity-70 mt-1")}>
               {session.user.email}
             </p>
           )}
-          <p
-            className={cn(body.className, "opacity-80 mt-2")}
-            style={{
-              textShadow: "1px 1px 0 #2c2c2c",
-            }}
-          >
+          <p className={cn(body.className, "opacity-80 mt-2")}>
             Your uploaded resumes and activity
           </p>
           {session && (
@@ -84,7 +74,7 @@ export default function ProfilePage() {
               <span
                 className={cn(
                   display.className,
-                  "bg-[#F2D5A3] px-3 py-1 flex items-center gap-2 rounded-full border-[2px] border-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] font-bold"
+                  "bg-[#F2D5A3] px-3 py-1 flex items-center gap-2 rounded-full border-[2px] border-[#2c2c2c]  font-bold"
                 )}
               >
                 <FaFileAlt className="mr-1" />
@@ -115,12 +105,7 @@ export default function ProfilePage() {
           Your Resumes
         </h3>
         {myResumes.length === 0 ? (
-          <p
-            className={cn(body.className, "text-sm opacity-80")}
-            style={{
-              textShadow: "1px 1px 0 #2c2c2c",
-            }}
-          >
+          <p className={cn(body.className, "text-sm opacity-80")}>
             You haven&apos;t uploaded anything yet. Try uploading one.
           </p>
         ) : (

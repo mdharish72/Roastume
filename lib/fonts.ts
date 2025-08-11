@@ -1,4 +1,4 @@
-import { Bangers, Kalam } from "next/font/google";
+import { Bangers, Open_Sans } from "next/font/google";
 
 // Display font for headings and titles
 export const display = Bangers({
@@ -8,9 +8,10 @@ export const display = Bangers({
 });
 
 // Body font for regular text
-export const body = Kalam({
+export const body = Open_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "700"],
+  weight: ["400", "500", "600", "700"],
+  style: ["italic"],
   display: "swap",
 });
 

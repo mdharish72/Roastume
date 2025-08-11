@@ -119,11 +119,13 @@ export function EnhancedComment({
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <span
-                  className={cn(body.className, "font-bold text-[#2c2c2c]")}
+                  className={cn(display.className, "font-bold text-[#2c2c2c]")}
                 >
                   {comment.author}
                 </span>
-                <span className="text-xs text-[#2c2c2c]/60">
+                <span
+                  className={cn(body.className, "text-xs text-[#2c2c2c]/60")}
+                >
                   {new Date(comment.createdAt).toLocaleDateString()}
                 </span>
               </div>
