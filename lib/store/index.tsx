@@ -25,8 +25,14 @@ export function RoastumeProvider({ children }: { children: React.ReactNode }) {
   );
 
   // Create action handlers
-  const resumeActions = createResumeActions(setResumes, setLoading, setError);
-  const commentActions = createCommentActions(setResumes);
+  const resumeActions = useMemo(
+    () => createResumeActions(setResumes, setLoading, setError),
+    [setResumes, setLoading, setError]
+  );
+  const commentActions = useMemo(
+    () => createCommentActions(setResumes),
+    [setResumes]
+  );
 
   // Load resumes on mount
   useEffect(() => {

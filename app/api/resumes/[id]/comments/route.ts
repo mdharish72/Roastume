@@ -12,7 +12,7 @@ const supabase = createClient<Database>(
 // POST /api/resumes/[id]/comments - Add comment to resume
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -20,7 +20,7 @@ export async function POST(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = await params;
+    const { id } = params;
     const body = await request.json();
     const { text } = body;
 
@@ -88,13 +88,16 @@ export async function POST(
 // GET /api/resumes/[id]/comments - Fetch comments for a resume (with replies)
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
 
-    // Fetch top-level comments for the resume including profiles and nested replies
-    const { data: comments, error } = await supabase
+    // Try fetching top-level comments (parent_id null). If column missing, fallback without filter
+    let repliesSupported = true as boolean;
+    let comments: any[] | null = null;
+
+    const topLevelQuery = await supabase
       .from("comments")
       .select(
         `
@@ -103,14 +106,6 @@ export async function GET(
           id,
           name,
           avatar_url
-        ),
-        replies:comments!parent_id (
-          *,
-          profiles:user_id (
-            id,
-            name,
-            avatar_url
-          )
         )
       `
       )
@@ -118,16 +113,82 @@ export async function GET(
       .is("parent_id", null)
       .order("created_at", { ascending: true });
 
-    if (error) {
-      console.error("Error fetching comments:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch comments" },
-        { status: 500 }
-      );
+    if (topLevelQuery.error) {
+      if ((topLevelQuery.error as any)?.code === "42703") {
+        // parent_id column missing; fetch all comments flat and disable replies
+        repliesSupported = false;
+        const flatQuery = await supabase
+          .from("comments")
+          .select(
+            `
+            *,
+            profiles:user_id (
+              id,
+              name,
+              avatar_url
+            )
+          `
+          )
+          .eq("resume_id", id)
+          .order("created_at", { ascending: true });
+
+        if (flatQuery.error) {
+          console.error("Error fetching comments (flat):", flatQuery.error);
+          return NextResponse.json(
+            { error: "Failed to fetch comments" },
+            { status: 500 }
+          );
+        }
+        comments = flatQuery.data ?? [];
+      } else {
+        console.error("Error fetching comments:", topLevelQuery.error);
+        return NextResponse.json(
+          { error: "Failed to fetch comments" },
+          { status: 500 }
+        );
+      }
+    } else {
+      comments = topLevelQuery.data ?? [];
     }
 
-    const transformed =
-      comments?.map((c: any) => ({
+    // Build transformed list; fetch replies only if supported
+    const transformed: any[] = [];
+    for (const c of comments) {
+      let replies: any[] | null = null;
+      if (repliesSupported) {
+        const repliesQuery = await supabase
+          .from("comments")
+          .select(
+            `
+            *,
+            profiles:user_id (
+              id,
+              name,
+              avatar_url
+            )
+          `
+          )
+          .eq("parent_id", c.id)
+          .order("created_at", { ascending: true });
+
+        if (repliesQuery.error) {
+          if ((repliesQuery.error as any)?.code === "42703") {
+            replies = [];
+          } else {
+            console.error("Error fetching replies:", repliesQuery.error);
+            return NextResponse.json(
+              { error: "Failed to fetch comments" },
+              { status: 500 }
+            );
+          }
+        } else {
+          replies = repliesQuery.data ?? [];
+        }
+      } else {
+        replies = [];
+      }
+
+      transformed.push({
         id: c.id,
         author: c.profiles?.name || "Anonymous",
         avatar: c.profiles?.avatar_url || "/cartoon-avatar-user.png",
@@ -136,7 +197,7 @@ export async function GET(
         downvotes: c.downvotes_count || 0,
         createdAt: new Date(c.created_at).getTime(),
         replies:
-          c.replies?.map((r: any) => ({
+          replies?.map((r: any) => ({
             id: r.id,
             author: r.profiles?.name || "Anonymous",
             avatar: r.profiles?.avatar_url || "/cartoon-avatar-user.png",
@@ -145,7 +206,8 @@ export async function GET(
             downvotes: r.downvotes_count || 0,
             createdAt: new Date(r.created_at).getTime(),
           })) || [],
-      })) || [];
+      });
+    }
 
     return NextResponse.json({ comments: transformed });
   } catch (error) {

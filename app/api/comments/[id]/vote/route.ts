@@ -12,7 +12,7 @@ const supabase = createClient<Database>(
 // POST /api/comments/[id]/vote - Vote on comment (upvote/downvote)
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -20,7 +20,7 @@ export async function POST(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = await params;
+    const { id } = params;
     const body = await request.json();
     const { voteType } = body; // 'upvote' or 'downvote'
 
@@ -43,23 +43,80 @@ export async function POST(
     }
 
     // Check if user has already voted on this comment
-    const { data: existingVote, error: voteError } = await supabase
+    let votesSupported = true as boolean;
+    let existingVote: any = null;
+    const voteLookup = await supabase
       .from("comment_votes")
       .select("*")
       .eq("comment_id", id)
       .eq("user_id", session.user.id)
       .single();
 
-    if (voteError && voteError.code !== "PGRST116") {
-      // PGRST116 is "not found"
-      console.error("Error checking existing vote:", voteError);
-      return NextResponse.json(
-        { error: "Failed to check existing vote" },
-        { status: 500 }
-      );
+    if (voteLookup.error) {
+      if (voteLookup.error.code === "PGRST116") {
+        // not found is fine; continue with existingVote null
+        existingVote = null;
+      } else if (voteLookup.error.code === "PGRST205") {
+        // table missing; fallback mode
+        votesSupported = false;
+      } else {
+        console.error("Error checking existing vote:", voteLookup.error);
+        return NextResponse.json(
+          { error: "Failed to check existing vote" },
+          { status: 500 }
+        );
+      }
+    } else {
+      existingVote = voteLookup.data;
     }
 
-    let result;
+    let result: { voted: boolean; voteType: "upvote" | "downvote" | null };
+
+    if (!votesSupported) {
+      // Fallback: increment counters without per-user tracking
+      const { data: current, error: readErr } = await supabase
+        .from("comments")
+        .select("upvotes_count, downvotes_count")
+        .eq("id", id)
+        .single();
+
+      if (readErr) {
+        console.error("Error reading counts in fallback:", readErr);
+        return NextResponse.json(
+          { error: "Failed to update vote" },
+          { status: 500 }
+        );
+      }
+
+      const nextUp =
+        voteType === "upvote"
+          ? (current.upvotes_count || 0) + 1
+          : current.upvotes_count || 0;
+      const nextDown =
+        voteType === "downvote"
+          ? (current.downvotes_count || 0) + 1
+          : current.downvotes_count || 0;
+
+      const { error: writeErr } = await supabase
+        .from("comments")
+        .update({ upvotes_count: nextUp, downvotes_count: nextDown })
+        .eq("id", id);
+
+      if (writeErr) {
+        console.error("Error updating counts in fallback:", writeErr);
+        return NextResponse.json(
+          { error: "Failed to update vote" },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json({
+        voted: true,
+        voteType,
+        upvotes: nextUp,
+        downvotes: nextDown,
+      });
+    }
 
     if (existingVote) {
       if (existingVote.vote_type === voteType) {

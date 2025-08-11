@@ -12,7 +12,7 @@ const supabase = createClient<Database>(
 // POST /api/comments/[id]/replies - Add reply to comment
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -20,7 +20,7 @@ export async function POST(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = await params;
+    const { id } = params;
     const body = await request.json();
     const { text } = body;
 
@@ -45,8 +45,10 @@ export async function POST(
       );
     }
 
-    // Add reply
-    const { data: reply, error: replyError } = await supabase
+    // Add reply (fallback if parent_id missing)
+    let reply: any = null;
+    let replyError: any = null;
+    const insertAttempt = await supabase
       .from("comments")
       .insert({
         resume_id: parentComment.resume_id,
@@ -65,6 +67,34 @@ export async function POST(
       `
       )
       .single();
+
+    if (insertAttempt.error && insertAttempt.error.code === "PGRST204") {
+      // parent_id missing; create a flat comment instead of a nested reply
+      const flatInsert = await supabase
+        .from("comments")
+        .insert({
+          resume_id: parentComment.resume_id,
+          user_id: session.user.id,
+          text: text.trim(),
+        })
+        .select(
+          `
+          *,
+          profiles:user_id (
+            id,
+            name,
+            avatar_url
+          )
+        `
+        )
+        .single();
+
+      reply = flatInsert.data;
+      replyError = flatInsert.error;
+    } else {
+      reply = insertAttempt.data;
+      replyError = insertAttempt.error;
+    }
 
     if (replyError) {
       console.error("Error adding reply:", replyError);
@@ -101,10 +131,11 @@ export async function POST(
 // GET /api/comments/[id]/replies - Get replies for a comment
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
+    // If parent_id column missing, return empty array
     const { data: replies, error } = await supabase
       .from("comments")
       .select(
@@ -121,6 +152,12 @@ export async function GET(
       .order("created_at", { ascending: true });
 
     if (error) {
+      if (
+        (error as any)?.code === "PGRST204" ||
+        (error as any)?.code === "42703"
+      ) {
+        return NextResponse.json({ replies: [] });
+      }
       console.error("Error fetching replies:", error);
       return NextResponse.json(
         { error: "Failed to fetch replies" },

@@ -44,7 +44,7 @@ export function createCommentActions(
       );
     } catch (err) {
       console.error("Failed to load comments:", err);
-      throw new Error("Failed to load comments");
+      // Don't throw error to prevent breaking the UI
     }
   };
 
@@ -69,6 +69,7 @@ export function createCommentActions(
                     replies: [],
                   },
                 ],
+                commentsCount: (r.commentsCount ?? r.comments.length) + 1,
               }
             : r
         )

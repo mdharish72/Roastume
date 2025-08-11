@@ -1,9 +1,9 @@
 "use client";
 
 import { body, display } from "@/lib/fonts";
-import type React from "react";
 import { useRoastume } from "@/lib/store";
 import { cn } from "@/lib/utils";
+import type React from "react";
 import { useEffect, useState } from "react";
 import { EnhancedComment } from "./enhanced-comment";
 
@@ -11,16 +11,25 @@ export function CommentList({ resumeId }: { resumeId: string }) {
   const { find, addComment, loadComments } = useRoastume();
   const [text, setText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoadingComments, setIsLoadingComments] = useState(true);
   const resume = find(resumeId);
 
   if (!resume) return null;
 
   useEffect(() => {
-    // Ensure comments are loaded for this resume
-    loadComments(resumeId).catch((err) =>
-      console.error("Failed to load comments:", err)
-    );
-  }, [resumeId]);
+    // Load comments for this resume
+    const loadCommentsForResume = async () => {
+      try {
+        await loadComments(resumeId);
+      } catch (err) {
+        console.error("Failed to load comments:", err);
+      } finally {
+        setIsLoadingComments(false);
+      }
+    };
+
+    loadCommentsForResume();
+  }, [resumeId, loadComments]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,11 +55,7 @@ export function CommentList({ resumeId }: { resumeId: string }) {
         )}
         style={{ textShadow: "1px 1px 0 #2c2c2c" }}
       >
-        Comments (
-        {resume.comments.length > 0
-          ? resume.comments.length
-          : resume.commentsCount ?? 0}
-        )
+        Comments ({Math.max(resume.comments.length, resume.commentsCount ?? 0)})
       </h3>
 
       <form onSubmit={onSubmit} className="flex items-start gap-3">
@@ -71,7 +76,16 @@ export function CommentList({ resumeId }: { resumeId: string }) {
       </form>
 
       <div className="space-y-4">
-        {resume.comments.length === 0 && (
+        {isLoadingComments ? (
+          <p
+            className={cn(
+              body.className,
+              "text-sm opacity-80 text-center py-8"
+            )}
+          >
+            Loading comments...
+          </p>
+        ) : resume.comments.length === 0 ? (
           <p
             className={cn(
               body.className,
@@ -80,10 +94,9 @@ export function CommentList({ resumeId }: { resumeId: string }) {
           >
             No comments yet. Be the first to roast! 🔥
           </p>
+        ) : (
+          resume.comments.map((c) => <EnhancedComment key={c.id} comment={c} />)
         )}
-        {resume.comments.map((c) => (
-          <EnhancedComment key={c.id} comment={c} />
-        ))}
       </div>
     </div>
   );
