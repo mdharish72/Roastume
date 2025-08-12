@@ -118,7 +118,7 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
             >
               <AiOutlineComment className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="rounded-full border-[1px] sm:border-[2px] border-[#2c2c2c] bg-[#F2D5A3] px-1 sm:px-1.5 py-0.5 text-xs font-normal">
-                {resume.comments.length}
+                {resume.commentsCount ?? resume.comments.length}
               </span>
             </Link>
 
