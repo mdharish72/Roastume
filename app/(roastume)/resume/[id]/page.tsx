@@ -6,9 +6,10 @@ import { body, display } from "@/lib/fonts";
 import { useRoastume } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useParams, useRouter } from "next/navigation";
 import { FaArrowLeft, FaThumbsUp } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAuthModal } from "@/components/auth-modal-provider";
 
 export default function ResumeDetail() {
@@ -18,10 +19,21 @@ export default function ResumeDetail() {
   const resume = find(id);
   const pdfUrl =
     resume?.fileType === "pdf" && resume.fileUrl
-      ? `${resume.fileUrl}${
-          resume.fileUrl.includes("#") ? "&" : "#"
-        }view=FitH&zoom=page-width&toolbar=0&navpanes=0&statusbar=0`
+      ? `/api/pdf?url=${encodeURIComponent(resume.fileUrl)}`
       : undefined;
+  const PdfViewer = useMemo(
+    () =>
+      dynamic(
+        () => import("@/components/pdf-viewer").then((m) => m.PdfViewer),
+        {
+          ssr: false,
+          loading: () => (
+            <div className="p-4 text-center">Preparing viewer…</div>
+          ),
+        }
+      ),
+    []
+  );
 
   if (!resume) {
     return (
@@ -90,13 +102,25 @@ export default function ResumeDetail() {
                 />
               </div>
             ) : (
-              <div className="relative w-full aspect-[85/110] sm:aspect-auto sm:h-[600px] lg:h-[700px] overflow-hidden rounded-none sm:rounded-lg bg-white">
-                <iframe
-                  src={pdfUrl ?? resume.fileUrl}
-                  title={`${resume.name} resume PDF`}
-                  className="absolute inset-0 h-full w-full border-0"
-                  loading="lazy"
-                />
+              <div className="grid gap-2">
+                {pdfUrl ? (
+                  <PdfViewer url={pdfUrl} />
+                ) : (
+                  <div className="p-4 text-center">No PDF URL available.</div>
+                )}
+                {pdfUrl && (
+                  <a
+                    href={pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      display.className,
+                      "w-full sm:w-fit justify-center text-center rounded-full border-[3px] border-[#2c2c2c] bg-[#EBDDBF] px-4 py-2 font-bold shadow-[3px_3px_0_#2c2c2c] text-lg"
+                    )}
+                  >
+                    Open PDF in new tab
+                  </a>
+                )}
               </div>
             )}
           </div>
