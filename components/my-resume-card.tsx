@@ -162,7 +162,6 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
             >
               <AiFillFire className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">View</span>
-              <span className="sm:hidden">👁️</span>
             </Link>
           </div>
         </div>
