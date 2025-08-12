@@ -79,6 +79,9 @@ export interface Database {
           resume_id: string;
           user_id: string;
           text: string;
+          parent_id: string | null;
+          upvotes_count: number;
+          downvotes_count: number;
           created_at: string;
           updated_at: string;
         };
@@ -87,6 +90,9 @@ export interface Database {
           resume_id: string;
           user_id: string;
           text: string;
+          parent_id?: string | null;
+          upvotes_count?: number;
+          downvotes_count?: number;
           created_at?: string;
           updated_at?: string;
         };
@@ -95,8 +101,34 @@ export interface Database {
           resume_id?: string;
           user_id?: string;
           text?: string;
+          parent_id?: string | null;
+          upvotes_count?: number;
+          downvotes_count?: number;
           created_at?: string;
           updated_at?: string;
+        };
+      };
+      comment_votes: {
+        Row: {
+          id: string;
+          comment_id: string;
+          user_id: string;
+          vote_type: "upvote" | "downvote";
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          comment_id: string;
+          user_id: string;
+          vote_type: "upvote" | "downvote";
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          comment_id?: string;
+          user_id?: string;
+          vote_type?: "upvote" | "downvote";
+          created_at?: string;
         };
       };
       likes: {
