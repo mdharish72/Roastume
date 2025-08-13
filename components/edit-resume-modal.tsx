@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
 import { FaTimes, FaUpload } from "react-icons/fa";
 import { ComicCard } from "./comic-card";
+import RedactionCanvas from "./redaction-canvas";
 
 interface EditResumeModalProps {
   resume: Resume;
@@ -29,6 +30,8 @@ export function EditResumeModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showRedactor, setShowRedactor] = useState(false);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
 
   if (!isOpen) return null;
 
@@ -56,6 +59,14 @@ export function EditResumeModal({
       return;
     }
 
+    // If image, open redactor first
+    if (file.type.startsWith("image/")) {
+      setPendingFile(file);
+      setShowRedactor(true);
+      return;
+    }
+
+    // PDFs upload directly
     try {
       setIsUploading(true);
       const result = await uploadFile(file);
@@ -64,6 +75,25 @@ export function EditResumeModal({
         fileUrl: result.fileUrl,
         fileType: result.fileType,
       }));
+    } catch (error) {
+      console.error("Upload failed:", error);
+      alert("Failed to upload file. Please try again.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const applyRedaction = async (file: File) => {
+    try {
+      setIsUploading(true);
+      const result = await uploadFile(file);
+      setFormData((prev) => ({
+        ...prev,
+        fileUrl: result.fileUrl,
+        fileType: result.fileType,
+      }));
+      setShowRedactor(false);
+      setPendingFile(null);
     } catch (error) {
       console.error("Upload failed:", error);
       alert("Failed to upload file. Please try again.");
@@ -207,6 +237,15 @@ export function EditResumeModal({
               <p
                 className={cn(
                   body.className,
+                  "text-xs text-[#2c2c2c]/70 text-center"
+                )}
+              >
+                Tip: For images, you can preview and mask emails/phone numbers
+                before uploading.
+              </p>
+              <p
+                className={cn(
+                  body.className,
                   "text-sm text-[#2c2c2c]/70 text-center"
                 )}
               >
@@ -239,6 +278,16 @@ export function EditResumeModal({
           </div>
         </form>
       </ComicCard>
+      {showRedactor && pendingFile && (
+        <RedactionCanvas
+          file={pendingFile}
+          onApply={applyRedaction}
+          onClose={() => {
+            setShowRedactor(false);
+            setPendingFile(null);
+          }}
+        />
+      )}
     </div>
   );
 }

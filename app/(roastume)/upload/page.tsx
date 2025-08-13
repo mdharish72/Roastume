@@ -8,6 +8,7 @@ import { FaFilePdf, FaImage, FaUpload, FaTimes } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import RedactionCanvas from "@/components/redaction-canvas";
 import { body, display } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { useAuthModal } from "@/components/auth-modal-provider";
@@ -21,6 +22,7 @@ export default function UploadPage() {
   const [blurb, setBlurb] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [showRedactor, setShowRedactor] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -58,6 +60,16 @@ export default function UploadPage() {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+  };
+
+  const openRedactor = () => {
+    if (!selectedFile) return;
+    setShowRedactor(true);
+  };
+
+  const applyRedaction = (file: File) => {
+    setSelectedFile(file);
+    setShowRedactor(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -278,14 +290,51 @@ export default function UploadPage() {
                     <FaTimes className="h-5 w-5" />
                   </button>
                 </div>
-                <p
-                  className={cn(
-                    body.className,
-                    "text-sm text-green-600 font-medium"
-                  )}
-                >
-                  ✓ File ready to upload
-                </p>
+                {selectedFile.type.startsWith("image/") ? (
+                  <div className="grid gap-2 sm:gap-3">
+                    <p
+                      className={cn(
+                        body.className,
+                        "text-xs sm:text-sm opacity-80"
+                      )}
+                    >
+                      Tip: Mask emails, phone numbers, addresses, or company
+                      names before uploading.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={openRedactor}
+                      className={cn(
+                        display.className,
+                        "inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-[#EBDDBF] px-4 py-2 font-bold shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
+                      )}
+                    >
+                      Preview & Mask
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid gap-2 sm:gap-3">
+                    <p
+                      className={cn(
+                        body.className,
+                        "text-xs sm:text-sm opacity-80 text-center"
+                      )}
+                    >
+                      You can mask sensitive info in a PDF page and it will be
+                      exported as a PNG.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={openRedactor}
+                      className={cn(
+                        display.className,
+                        "justify-self-center inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-[#EBDDBF] px-4 py-2 font-bold shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
+                      )}
+                    >
+                      Preview & Mask PDF
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -318,6 +367,14 @@ export default function UploadPage() {
           <li>• Remember to give constructive feedback to others too</li>
         </ul>
       </ComicCard>
+
+      {showRedactor && selectedFile && (
+        <RedactionCanvas
+          file={selectedFile}
+          onApply={applyRedaction}
+          onClose={() => setShowRedactor(false)}
+        />
+      )}
     </div>
   );
 }
