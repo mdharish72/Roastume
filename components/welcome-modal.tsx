@@ -2,7 +2,7 @@
 
 import { body, display } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { X } from "lucide-react";
+import { FaTimes } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useAuthModal } from "./auth-modal-provider";
@@ -59,7 +59,7 @@ export function WelcomeModal() {
             className="p-2 rounded-full border-[2px] border-[#2c2c2c] bg-green-400 hover:bg-green-500 text-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all"
             aria-label="Close modal"
           >
-            <X className="w-4 h-4" />
+            <FaTimes className="w-4 h-4" />
           </button>
         </div>
 

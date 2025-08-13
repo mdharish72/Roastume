@@ -2,7 +2,7 @@
 
 import { body } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { Search, X } from "lucide-react";
+import { FaSearch, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 
 interface SearchBarProps {
@@ -32,7 +32,7 @@ export function SearchBar({
   return (
     <div className={cn("relative w-full", className)}>
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#2c2c2c] w-5 h-5" />
+        <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#2c2c2c] w-5 h-5" />
         <input
           type="text"
           value={query}
@@ -54,7 +54,7 @@ export function SearchBar({
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#2c2c2c] hover:text-red-600 transition-colors"
             aria-label="Clear search"
           >
-            <X className="w-5 h-5" />
+            <FaTimes className="w-5 h-5" />
           </button>
         )}
       </div>

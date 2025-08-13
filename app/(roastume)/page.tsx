@@ -7,7 +7,7 @@ import { WelcomeModal } from "@/components/welcome-modal";
 import { body, display } from "@/lib/fonts";
 import { useRoastume } from "@/lib/store";
 import { cn } from "@/lib/utils";
-import { X } from "lucide-react";
+import { FaTimes } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import { useMemo, useState } from "react";
 
@@ -81,7 +81,7 @@ export default function Page() {
             aria-label="Close welcome message"
             type="button"
           >
-            <X className="w-4 h-4 text-[#2c2c2c]" />
+            <FaTimes className="w-4 h-4 text-[#2c2c2c]" />
           </button>
           <h2
             className={cn(

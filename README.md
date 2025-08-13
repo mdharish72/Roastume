@@ -132,6 +132,7 @@ roastume/
    # Supabase
    NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+   # Server-only; do not expose in the browser
    SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
    ```
 
@@ -211,13 +212,7 @@ The application is deployed on Vercel and can be accessed at:
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Contributions are welcome! Please open an issue or PR. By contributing you agree to follow the Security and icon usage guidelines (use `react-icons`).
 
 ## 📝 License
 
@@ -228,7 +223,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Built with [Next.js](https://nextjs.org/)
 - Database powered by [Supabase](https://supabase.com/)
 - UI components from [shadcn/ui](https://ui.shadcn.com/)
-- Icons from [Lucide React](https://lucide.dev/)
+- Icons from [react-icons](https://react-icons.github.io/react-icons/)
 - Fonts from [Google Fonts](https://fonts.google.com/)
 
 ## 📞 Support

@@ -2,7 +2,7 @@
 
 import { body, display } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { X } from "lucide-react";
+import { FaTimes } from "react-icons/fa";
 import { getProviders, signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -63,7 +63,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
             className="p-2 rounded-full border-[2px] border-[#2c2c2c] bg-red-400 hover:bg-red-500 text-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all"
             aria-label="Close modal"
           >
-            <X className="w-4 h-4" />
+            <FaTimes className="w-4 h-4" />
           </button>
         </div>
 
