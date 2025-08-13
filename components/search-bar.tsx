@@ -3,7 +3,7 @@
 import { body } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { FaSearch, FaTimes } from "react-icons/fa";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -17,16 +17,26 @@ export function SearchBar({
   className,
 }: SearchBarProps) {
   const [query, setQuery] = useState("");
+  const debounceRef = useRef<number | null>(null);
+
+  const triggerSearch = (value: string) => {
+    if (debounceRef.current) {
+      window.clearTimeout(debounceRef.current);
+      debounceRef.current = null;
+    }
+    debounceRef.current = window.setTimeout(() => {
+      onSearch(value.trim());
+    }, 400);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
-    onSearch(value);
   };
 
   const clearSearch = () => {
     setQuery("");
-    onSearch("");
+    triggerSearch("");
   };
 
   return (
@@ -37,6 +47,12 @@ export function SearchBar({
           type="text"
           value={query}
           onChange={handleInputChange}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              triggerSearch(query);
+            }
+          }}
           placeholder={placeholder}
           className={cn(
             body.className,
@@ -48,6 +64,12 @@ export function SearchBar({
             "placeholder:text-gray-600 text-[#2c2c2c] font-medium"
           )}
         />
+        <button
+          type="button"
+          className="absolute left-2 top-1/2 -translate-y-1/2 p-2 opacity-0 pointer-events-none"
+          aria-hidden
+          tabIndex={-1}
+        />
         {query && (
           <button
             onClick={clearSearch}
@@ -55,6 +77,16 @@ export function SearchBar({
             aria-label="Clear search"
           >
             <FaTimes className="w-5 h-5" />
+          </button>
+        )}
+        {!query && (
+          <button
+            onClick={() => triggerSearch(query)}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#2c2c2c] hover:text-[#111] transition-colors"
+            aria-label="Search"
+            type="button"
+          >
+            <FaSearch className="w-5 h-5" />
           </button>
         )}
       </div>
