@@ -101,11 +101,11 @@ export function EnhancedComment({
   };
 
   return (
-    <div className={cn("space-y-3", isReply && "ml-8")}>
+    <div className={cn("space-y-3", isReply && "ml-4 sm:ml-8")}>
       <ComicCard className="p-4 border-[3px] border-[#2c2c2c] rounded-xl bg-white/80">
-        <div className="flex items-start gap-3">
+        <div className="flex items-start gap-2 sm:gap-3">
           {/* Avatar */}
-          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border-[2px] border-[#2c2c2c] bg-white">
+          <div className="relative h-8 w-8 sm:h-10 sm:w-10 shrink-0 overflow-hidden rounded-full border-[2px] border-[#2c2c2c] bg-white">
             <Image
               src={comment.avatar}
               alt={`${comment.author} avatar`}
@@ -116,10 +116,13 @@ export function EnhancedComment({
 
           <div className="flex-1 min-w-0">
             {/* Header */}
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div className="flex items-center gap-2 min-w-0">
                 <span
-                  className={cn(display.className, "font-bold text-[#2c2c2c]")}
+                  className={cn(
+                    display.className,
+                    "font-bold text-[#2c2c2c] truncate"
+                  )}
                 >
                   {comment.author}
                 </span>
@@ -208,14 +211,19 @@ export function EnhancedComment({
                 </div>
               </form>
             ) : (
-              <p className={cn(body.className, "text-[#2c2c2c] mb-3")}>
+              <p
+                className={cn(
+                  body.className,
+                  "text-[#2c2c2c] mb-3 break-words"
+                )}
+              >
                 {comment.text}
               </p>
             )}
 
             {/* Actions */}
             {!isEditing && (
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                 {/* Voting */}
                 <div className="flex items-center gap-2">
                   <button
@@ -271,7 +279,10 @@ export function EnhancedComment({
 
         {/* Reply form */}
         {showReplyForm && (
-          <form onSubmit={handleReply} className="mt-4 ml-13 space-y-3">
+          <form
+            onSubmit={handleReply}
+            className="mt-4 ml-10 sm:ml-13 space-y-3"
+          >
             <textarea
               value={replyText}
               onChange={(e) => setReplyText(e.target.value)}
