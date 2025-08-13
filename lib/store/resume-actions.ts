@@ -14,11 +14,11 @@ export function createResumeActions(
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setError: React.Dispatch<React.SetStateAction<string | null>>
 ) {
-  const refreshResumes = async () => {
+  const refreshResumes = async (page: number = 1, pageSize: number = 9) => {
     try {
       setLoading(true);
       setError(null);
-      const apiResumes = await fetchResumes();
+      const { resumes: apiResumes } = await fetchResumes(page, pageSize);
       const transformedResumes = apiResumes.map(transformApiResume);
       setResumes(transformedResumes);
     } catch (err) {

@@ -13,9 +13,12 @@ import { useMemo, useState } from "react";
 
 export default function Page() {
   const { data: session } = useSession();
-  const { resumes, currentUser, loading, error } = useRoastume();
+  const { resumes, currentUser, loading, error, refreshResumes } =
+    useRoastume();
   const [searchQuery, setSearchQuery] = useState("");
   const [showWelcome, setShowWelcome] = useState(true);
+  const [page, setPage] = useState(1);
+  const pageSize = 9;
 
   // Filter resumes based on search query
   const filteredResumes = useMemo(() => {
@@ -192,6 +195,38 @@ export default function Page() {
             {filteredResumes.map((r) => (
               <ResumeCard key={r.id} resume={r} />
             ))}
+          </div>
+          <div className="flex items-center justify-center gap-2 mt-2">
+            <button
+              className={cn(
+                body.className,
+                "px-3 py-1.5 rounded-full border-[3px] border-[#2c2c2c] bg-[#EBDDBF] shadow-[3px_3px_0_#2c2c2c] disabled:opacity-50"
+              )}
+              disabled={page <= 1}
+              onClick={async () => {
+                const next = Math.max(1, page - 1);
+                setPage(next);
+                await refreshResumes(next, pageSize);
+              }}
+            >
+              Prev
+            </button>
+            <span className={cn(body.className, "text-sm px-2")}>
+              Page {page}
+            </span>
+            <button
+              className={cn(
+                body.className,
+                "px-3 py-1.5 rounded-full border-[3px] border-[#2c2c2c] bg-[#EBDDBF] shadow-[3px_3px_0_#2c2c2c]"
+              )}
+              onClick={async () => {
+                const next = page + 1;
+                setPage(next);
+                await refreshResumes(next, pageSize);
+              }}
+            >
+              Next
+            </button>
           </div>
         </div>
       )}

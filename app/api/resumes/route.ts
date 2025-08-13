@@ -10,9 +10,22 @@ const supabase = createClient<Database>(
 );
 
 // GET /api/resumes - Fetch all resumes with user profiles
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const { data: resumes, error } = await supabase
+    const { searchParams } = new URL(request.url);
+    const page = Math.max(1, Number(searchParams.get("page") || 1));
+    const pageSize = Math.max(
+      1,
+      Math.min(50, Number(searchParams.get("pageSize") || 9))
+    );
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize - 1;
+
+    const {
+      data: resumes,
+      error,
+      count,
+    } = await supabase
       .from("resumes")
       .select(
         `
@@ -22,12 +35,30 @@ export async function GET() {
           name,
           avatar_url
         )
-      `
+      `,
+        { count: "exact", head: false }
       )
       .order("created_at", { ascending: false });
 
-    if (error) {
-      console.error("Error fetching resumes:", error);
+    // Apply range for pagination
+    const ranged = await supabase
+      .from("resumes")
+      .select(
+        `
+        *,
+        profiles:user_id (
+          id,
+          name,
+          avatar_url
+        )
+      `,
+        { count: "exact", head: false }
+      )
+      .order("created_at", { ascending: false })
+      .range(from, to);
+
+    if (ranged.error) {
+      console.error("Error fetching resumes:", ranged.error);
       return NextResponse.json(
         { error: "Failed to fetch resumes" },
         { status: 500 }
@@ -36,7 +67,7 @@ export async function GET() {
 
     // Transform data to match frontend format
     const transformedResumes =
-      resumes?.map((resume) => ({
+      ranged.data?.map((resume) => ({
         id: resume.id,
         name: resume.name,
         blurb: resume.blurb,
@@ -50,7 +81,8 @@ export async function GET() {
         avatar: resume.profiles?.avatar_url || "/cartoon-avatar-user.png",
       })) || [];
 
-    return NextResponse.json({ resumes: transformedResumes });
+    const total = ranged.count ?? count ?? transformedResumes.length;
+    return NextResponse.json({ resumes: transformedResumes, total });
   } catch (error) {
     console.error("API Error:", error);
     return NextResponse.json(
