@@ -43,7 +43,7 @@ export function ConfirmModal({
       onClick={onCancel}
     >
       <div
-        className="bg-[#EFD7B7] border-[4px] border-[#2c2c2c] shadow-[8px_8px_0_#2c2c2c] rounded-2xl w-full max-w-md overflow-hidden"
+        className="bg-[#EFD7B7] comic-border-4 comic-shadow-8 rounded-2xl w-full max-w-md overflow-hidden"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -70,7 +70,7 @@ export function ConfirmModal({
           </h2>
           <button
             onClick={onCancel}
-            className="p-2 rounded-full border-[2px] border-[#2c2c2c] bg-green-400 hover:bg-green-500 text-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform duration-300"
+            className="p-2 rounded-full comic-border-2 bg-green-400 hover:bg-green-500 text-[#2c2c2c] comic-shadow-2 comic-lift duration-300"
             aria-label="Close"
           >
             <FaTimes className="w-4 h-4" />
@@ -91,7 +91,7 @@ export function ConfirmModal({
               onClick={onCancel}
               className={cn(
                 body.className,
-                "rounded-full border-[3px] border-[#2c2c2c] bg-[#EBDDBF] px-4 py-2 font-bold shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform duration-300"
+                "comic-btn bg-[#EBDDBF] comic-shadow-3 comic-lift duration-300"
               )}
             >
               {cancelLabel}
@@ -101,7 +101,7 @@ export function ConfirmModal({
               disabled={isConfirming}
               className={cn(
                 display.className,
-                "rounded-full border-[3px] border-[#2c2c2c] bg-red-500 hover:bg-red-600 text-white px-5 py-2 font-bold shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                "comic-btn bg-red-500 hover:bg-red-600 text-white comic-shadow-3 comic-lift duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
               )}
             >
               {isConfirming ? "Deleting…" : confirmLabel}

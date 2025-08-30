@@ -102,10 +102,10 @@ export function EnhancedComment({
 
   return (
     <div className={cn("space-y-3", isReply && "ml-4 sm:ml-8")}>
-      <ComicCard className="p-4 border-[3px] border-[#2c2c2c] rounded-xl bg-white/80">
+      <ComicCard className="p-4 comic-border rounded-xl bg-white/80">
         <div className="flex items-start gap-2 sm:gap-3">
           {/* Avatar */}
-          <div className="relative h-8 w-8 sm:h-10 sm:w-10 shrink-0 overflow-hidden rounded-full border-[2px] border-[#2c2c2c] bg-white">
+          <div className="relative h-8 w-8 sm:h-10 sm:w-10 shrink-0 overflow-hidden rounded-full comic-border-2 bg-white">
             <Image
               src={comment.avatar}
               alt={`${comment.author} avatar`}
@@ -144,7 +144,7 @@ export function EnhancedComment({
                   </button>
 
                   {showMenu && (
-                    <div className="absolute right-0 top-8 bg-white border-[2px] border-[#2c2c2c] rounded-lg shadow-[3px_3px_0_#2c2c2c] z-10 min-w-[120px]">
+                    <div className="absolute right-0 top-8 bg-white comic-border-2 rounded-lg comic-shadow-3 z-10 min-w-[120px]">
                       <button
                         onClick={() => {
                           setIsEditing(true);
@@ -179,7 +179,7 @@ export function EnhancedComment({
                   onChange={(e) => setEditText(e.target.value)}
                   className={cn(
                     body.className,
-                    "w-full p-2 border-[2px] border-[#2c2c2c] rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    "w-full p-2 comic-border-2 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
                   )}
                   rows={3}
                   required
@@ -190,7 +190,7 @@ export function EnhancedComment({
                     disabled={isSubmitting}
                     className={cn(
                       display.className,
-                      "px-3 py-1 bg-green-400 hover:bg-green-500 border-[2px] border-[#2c2c2c] rounded-lg shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all text-sm disabled:opacity-50"
+                      "px-3 py-1 bg-green-400 hover:bg-green-500 comic-border-2 rounded-lg comic-shadow-2 comic-lift text-sm disabled:opacity-50"
                     )}
                   >
                     {isSubmitting ? "Saving..." : "Save"}
@@ -203,7 +203,7 @@ export function EnhancedComment({
                     }}
                     className={cn(
                       display.className,
-                      "px-3 py-1 bg-gray-400 hover:bg-gray-500 border-[2px] border-[#2c2c2c] rounded-lg shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all text-sm"
+                      "px-3 py-1 bg-gray-400 hover:bg-gray-500 comic-border-2 rounded-lg comic-shadow-2 comic-lift text-sm"
                     )}
                   >
                     Cancel
@@ -228,14 +228,14 @@ export function EnhancedComment({
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleVote("upvote")}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full border-[2px] border-[#2c2c2c] bg-green-200 hover:bg-green-300 shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all"
+                    className="flex items-center gap-1 px-2 py-1 rounded-full comic-border-2 bg-green-200 hover:bg-green-300 comic-shadow-2 comic-lift"
                   >
                     <FaThumbsUp className="h-3 w-3" />
                     <span className="text-xs font-bold">{comment.upvotes}</span>
                   </button>
                   <button
                     onClick={() => handleVote("downvote")}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full border-[2px] border-[#2c2c2c] bg-red-200 hover:bg-red-300 shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all"
+                    className="flex items-center gap-1 px-2 py-1 rounded-full comic-border-2 bg-red-200 hover:bg-red-300 comic-shadow-2 comic-lift"
                   >
                     <FaThumbsDown className="h-3 w-3" />
                     <span className="text-xs font-bold">
@@ -248,7 +248,7 @@ export function EnhancedComment({
                 {!isReply && (
                   <button
                     onClick={() => setShowReplyForm(!showReplyForm)}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full border-[2px] border-[#2c2c2c] bg-blue-200 hover:bg-blue-300 shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all"
+                    className="flex items-center gap-1 px-2 py-1 rounded-full comic-border-2 bg-blue-200 hover:bg-blue-300 comic-shadow-2 comic-lift"
                   >
                     <FaReply className="h-3 w-3" />
                     <span className="text-xs font-bold">Reply</span>
@@ -259,7 +259,7 @@ export function EnhancedComment({
                 {hasReplies && (
                   <button
                     onClick={() => setShowReplies(!showReplies)}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full border-[2px] border-[#2c2c2c] bg-yellow-200 hover:bg-yellow-300 shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all"
+                    className="flex items-center gap-1 px-2 py-1 rounded-full comic-border-2 bg-yellow-200 hover:bg-yellow-300 comic-shadow-2 comic-lift"
                   >
                     {showReplies ? (
                       <FaChevronUp className="h-3 w-3" />
@@ -289,7 +289,7 @@ export function EnhancedComment({
               placeholder="Write a reply..."
               className={cn(
                 body.className,
-                "w-full p-2 border-[2px] border-[#2c2c2c] rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                "w-full p-2 comic-border-2 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
               )}
               rows={2}
               required
@@ -300,7 +300,7 @@ export function EnhancedComment({
                 disabled={isSubmitting}
                 className={cn(
                   display.className,
-                  "px-3 py-1 bg-blue-400 hover:bg-blue-500 border-[2px] border-[#2c2c2c] rounded-lg shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all text-sm disabled:opacity-50"
+                  "px-3 py-1 bg-blue-400 hover:bg-blue-500 comic-border-2 rounded-lg comic-shadow-2 comic-lift text-sm disabled:opacity-50"
                 )}
               >
                 {isSubmitting ? "Posting..." : "Post Reply"}
@@ -313,7 +313,7 @@ export function EnhancedComment({
                 }}
                 className={cn(
                   display.className,
-                  "px-3 py-1 bg-gray-400 hover:bg-gray-500 border-[2px] border-[#2c2c2c] rounded-lg shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all text-sm"
+                  "px-3 py-1 bg-gray-400 hover:bg-gray-500 comic-border-2 rounded-lg comic-shadow-2 comic-lift text-sm"
                 )}
               >
                 Cancel

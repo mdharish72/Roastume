@@ -119,3 +119,70 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  /* Reusable comic-style tokens */
+  .comic-border {
+    @apply border-[3px] border-[#2c2c2c];
+  }
+  .comic-border-2 {
+    @apply border-[2px] border-[#2c2c2c];
+  }
+  .comic-border-4 {
+    @apply border-[4px] border-[#2c2c2c];
+  }
+
+  .comic-shadow-2 {
+    box-shadow: 2px 2px 0 #2c2c2c;
+  }
+  .comic-shadow-3 {
+    box-shadow: 3px 3px 0 #2c2c2c;
+  }
+  .comic-shadow-4 {
+    box-shadow: 4px 4px 0 #2c2c2c;
+  }
+  .comic-shadow-6 {
+    box-shadow: 6px 6px 0 #2c2c2c;
+  }
+  .comic-shadow-8 {
+    box-shadow: 8px 8px 0 #2c2c2c;
+  }
+
+  .comic-lift {
+    transition: transform 200ms;
+  }
+  .comic-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Buttons */
+  .comic-btn {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 font-bold text-base;
+    @apply border-[3px] border-[#2c2c2c];
+  }
+  .comic-pill {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-2 font-bold text-base;
+    @apply border-[3px] border-[#2c2c2c];
+  }
+  .comic-icon-btn {
+    @apply flex items-center justify-center w-12 h-12 rounded-full;
+    @apply border-[3px] border-[#2c2c2c];
+  }
+
+  /* Brand palette helpers */
+  .bg-cream {
+    background-color: #efd7b7;
+  }
+  .bg-peach {
+    background-color: #f8e4c6;
+  }
+  .bg-yellow {
+    background-color: #f2d5a3;
+  }
+  .bg-teal {
+    background-color: #97d4d5;
+  }
+  .bg-beige {
+    background-color: #ebddbf;
+  }
+}

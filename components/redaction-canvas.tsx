@@ -250,7 +250,7 @@ export function RedactionCanvas({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-      <div className="w-full max-w-4xl max-h-[90vh] bg-[#F8E4C6] border-[3px] border-[#2c2c2c] rounded-xl shadow-[6px_6px_0_#2c2c2c] flex flex-col">
+      <div className="w-full max-w-4xl max-h-[90vh] bg-[#F8E4C6] comic-border rounded-xl comic-shadow-6 flex flex-col">
         <div className="flex items-center justify-between px-4 py-3 border-b-[3px] border-[#2c2c2c]">
           <h3
             className={cn(
@@ -277,7 +277,7 @@ export function RedactionCanvas({
                 disabled={pageNumber <= 1}
                 className={cn(
                   display.className,
-                  "px-3 py-1.5 rounded-full border-[3px] border-[#2c2c2c] bg-white shadow-[3px_3px_0_#2c2c2c] disabled:opacity-50"
+                  "px-3 py-1.5 rounded-full comic-border bg-white comic-shadow-3 disabled:opacity-50"
                 )}
               >
                 Prev
@@ -296,7 +296,7 @@ export function RedactionCanvas({
                 disabled={numPages ? pageNumber >= numPages : false}
                 className={cn(
                   display.className,
-                  "px-3 py-1.5 rounded-full border-[3px] border-[#2c2c2c] bg-white shadow-[3px_3px_0_#2c2c2c] disabled:opacity-50"
+                  "px-3 py-1.5 rounded-full comic-border bg-white comic-shadow-3 disabled:opacity-50"
                 )}
               >
                 Next
@@ -316,7 +316,7 @@ export function RedactionCanvas({
               </div>
               <div
                 ref={containerRef}
-                className="w-full overflow-auto border-[3px] border-[#2c2c2c] rounded-lg bg-white max-h-[60vh]"
+                className="w-full overflow-auto comic-border rounded-lg bg-white max-h-[60vh]"
               >
                 <canvas
                   ref={canvasRef}
@@ -336,7 +336,7 @@ export function RedactionCanvas({
                   disabled={rects.length === 0}
                   className={cn(
                     display.className,
-                    "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-[3px] border-[#2c2c2c] bg-white shadow-[3px_3px_0_#2c2c2c] disabled:opacity-50"
+                    "inline-flex items-center gap-2 px-3 py-1.5 rounded-full comic-border bg-white comic-shadow-3 disabled:opacity-50"
                   )}
                 >
                   <FaUndo className="h-4 w-4" /> Undo
@@ -347,7 +347,7 @@ export function RedactionCanvas({
                   disabled={rects.length === 0}
                   className={cn(
                     display.className,
-                    "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-[3px] border-[#2c2c2c] bg-white shadow-[3px_3px_0_#2c2c2c] disabled:opacity-50"
+                    "inline-flex items-center gap-2 px-3 py-1.5 rounded-full comic-border bg-white comic-shadow-3 disabled:opacity-50"
                   )}
                 >
                   <FaEraser className="h-4 w-4" /> Clear
@@ -372,7 +372,7 @@ export function RedactionCanvas({
             onClick={onClose}
             className={cn(
               display.className,
-              "px-3 py-1.5 rounded-full border-[3px] border-[#2c2c2c] bg-white shadow-[3px_3px_0_#2c2c2c]"
+              "px-3 py-1.5 rounded-full comic-border bg-white comic-shadow-3"
             )}
           >
             Cancel
@@ -382,7 +382,7 @@ export function RedactionCanvas({
             disabled={!isImage && !isPdf}
             className={cn(
               display.className,
-              "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-[3px] border-[#2c2c2c] bg-green-400 hover:bg-green-500 shadow-[3px_3px_0_#2c2c2c] disabled:opacity-50"
+              "inline-flex items-center gap-2 px-3 py-1.5 rounded-full comic-border bg-green-400 hover:bg-green-500 comic-shadow-3 disabled:opacity-50"
             )}
           >
             <FaCheck className="h-4 w-4" /> Apply & Use Image

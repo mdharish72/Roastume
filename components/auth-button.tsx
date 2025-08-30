@@ -19,7 +19,7 @@ export default function AuthButton() {
 
   if (status === "loading") {
     return (
-      <div className="w-12 h-12 bg-[#F2D5A3] rounded-full animate-pulse border-[3px] border-[#2c2c2c] shadow-[3px_3px_0_#2c2c2c]" />
+      <div className="w-12 h-12 bg-[#F2D5A3] rounded-full animate-pulse comic-border comic-shadow-3" />
     );
   }
 
@@ -29,7 +29,7 @@ export default function AuthButton() {
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
-            className="relative h-12 w-12 rounded-full border-[3px] border-[#2c2c2c] shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform bg-[#F2D5A3] hover:bg-[#F2D5A3]/90 p-0"
+            className="relative h-12 w-12 rounded-full comic-border comic-shadow-3 comic-lift bg-[#F2D5A3] hover:bg-[#F2D5A3]/90 p-0"
           >
             <Avatar className="h-10 w-10">
               <AvatarImage
@@ -43,7 +43,7 @@ export default function AuthButton() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          className="w-64 border-[3px] border-[#2c2c2c] shadow-[3px_3px_0_#2c2c2c] bg-[#EBDDBF]"
+          className="w-64 comic-border comic-shadow-3 bg-[#EBDDBF]"
           align="end"
         >
           <div className="flex items-center justify-start gap-3 p-3">
@@ -82,7 +82,7 @@ export default function AuthButton() {
           <DropdownMenuItem
             className={cn(
               display.className,
-              "cursor-pointer text-white bg-red-400 hover:bg-red-500 font-bold mx-2 mb-2 rounded border-[2px] border-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all"
+              "cursor-pointer text-white bg-red-400 hover:bg-red-500 font-bold mx-2 mb-2 rounded comic-border-2 comic-shadow-2 comic-lift"
             )}
             onClick={() => signOut()}
           >
@@ -98,7 +98,7 @@ export default function AuthButton() {
       onClick={showSignInModal}
       className={cn(
         display.className,
-        "bg-green-400 hover:bg-green-500 text-black font-bold border-[3px] border-[#2c2c2c] shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform px-4 py-2 rounded-full"
+        "bg-green-400 hover:bg-green-500 text-black font-bold comic-border comic-shadow-3 comic-lift px-4 py-2 rounded-full"
       )}
     >
       Sign In

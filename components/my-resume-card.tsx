@@ -40,11 +40,11 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
         variant="cream"
         fontStyle="none"
         shadow="large"
-        className="flex flex-col gap-4 border-[4px] border-[#2c2c2c] rounded-2xl p-4 sm:p-6 w-full"
+        className="flex flex-col gap-4 comic-border-4 rounded-2xl p-4 sm:p-6 w-full"
       >
         {/* Header section with avatar and info */}
         <div className="flex items-start gap-3 sm:gap-4">
-          <div className="relative h-12 w-12 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-full border-[3px] sm:border-[4px] border-[#2c2c2c] bg-white">
+          <div className="relative h-12 w-12 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-full comic-border sm:comic-border-4 bg-white">
             <Image
               src={
                 resume.avatar ||
@@ -99,7 +99,7 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
               }}
               className={cn(
                 display.className,
-                "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-green-400 hover:bg-green-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
+                "flex items-center gap-1 rounded-full comic-border-2 sm:comic-border-4 bg-green-400 hover:bg-green-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal comic-shadow-2 sm:comic-shadow-3 comic-lift text-[#2c2c2c]"
               )}
               aria-label="Like this resume"
             >
@@ -113,7 +113,7 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
               href={`/resume/${resume.id}#comments`}
               className={cn(
                 display.className,
-                "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-cyan-400 hover:bg-cyan-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
+                "flex items-center gap-1 rounded-full comic-border-2 sm:comic-border-4 bg-cyan-400 hover:bg-cyan-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal comic-shadow-2 sm:comic-shadow-3 comic-lift text-[#2c2c2c]"
               )}
             >
               <AiOutlineComment className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -126,7 +126,7 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
               onClick={() => onEdit(resume)}
               className={cn(
                 display.className,
-                "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-blue-400 hover:bg-blue-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
+                "flex items-center gap-1 rounded-full comic-border-2 sm:comic-border-4 bg-blue-400 hover:bg-blue-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal comic-shadow-2 sm:comic-shadow-3 comic-lift text-[#2c2c2c]"
               )}
               aria-label="Edit this resume"
             >
@@ -142,7 +142,7 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
               disabled={isDeleting}
               className={cn(
                 display.className,
-                "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-red-400 hover:bg-red-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c] disabled:opacity-50 disabled:cursor-not-allowed"
+                "flex items-center gap-1 rounded-full comic-border-2 sm:comic-border-4 bg-red-400 hover:bg-red-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal comic-shadow-2 sm:comic-shadow-3 comic-lift text-[#2c2c2c] disabled:opacity-50 disabled:cursor-not-allowed"
               )}
               aria-label="Delete this resume"
             >
@@ -156,7 +156,7 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
               href={`/resume/${resume.id}`}
               className={cn(
                 display.className,
-                "flex items-center gap-1 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-orange-400 hover:bg-orange-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
+                "flex items-center gap-1 rounded-full comic-border-2 sm:comic-border-4 bg-orange-400 hover:bg-orange-500 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-normal comic-shadow-2 sm:comic-shadow-3 comic-lift text-[#2c2c2c]"
               )}
               aria-label="View this resume"
             >

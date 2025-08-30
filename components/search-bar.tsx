@@ -57,9 +57,10 @@ export function SearchBar({
           className={cn(
             body.className,
             "w-full pl-10 pr-10 py-3 rounded-full",
-            "border-[3px] border-[#2c2c2c] bg-[#A3D8D6]",
-            "shadow-[3px_3px_0_#2c2c2c]",
-            "focus:outline-none focus:shadow-[4px_4px_0_#2c2c2c]",
+            "comic-border bg-[#A3D8D6]",
+            "comic-shadow-3",
+            "focus:outline-none",
+            "focus:shadow-[4px_4px_0_#2c2c2c]",
             "focus:-translate-y-0.5 transition-all duration-200",
             "placeholder:text-gray-600 text-[#2c2c2c] font-medium"
           )}

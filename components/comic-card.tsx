@@ -41,15 +41,15 @@ export function ComicCard({
   };
 
   const shadowStyles = {
-    small: "shadow-[3px_3px_0_#2c2c2c]",
-    medium: "shadow-[6px_6px_0_#2c2c2c]",
-    large: "shadow-[8px_8px_0_#2c2c2c]",
+    small: "comic-shadow-3",
+    medium: "comic-shadow-6",
+    large: "comic-shadow-8",
   };
 
   return (
     <Tag
       className={cn(
-        "rounded-2xl border-[3px] border-[#2c2c2c] p-4 transition-transform duration-300 hover:-translate-y-0.5 text-[#2c2c2c] w-full",
+        "rounded-2xl comic-border p-4 transition-transform duration-300 hover:-translate-y-0.5 text-[#2c2c2c] w-full",
         variantStyles[variant],
         fontStyles[fontStyle],
         shadowStyles[shadow],

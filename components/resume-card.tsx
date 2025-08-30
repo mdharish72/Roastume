@@ -31,11 +31,11 @@ export function ResumeCard({ resume }: { resume: Resume }) {
         variant="cream"
         fontStyle="none"
         shadow="large"
-        className="grid grid-rows-[auto_1fr_auto] gap-3 sm:gap-4 border-[3px] sm:border-[4px] border-[#2c2c2c] rounded-xl sm:rounded-2xl p-4 sm:p-6 h-full min-h-[250px]"
+        className="grid grid-rows-[auto_1fr_auto] gap-3 sm:gap-4 comic-border sm:comic-border-4 rounded-xl sm:rounded-2xl p-4 sm:p-6 h-full min-h-[250px]"
       >
         {/* Header section with avatar and info */}
         <div className="flex items-start gap-3 sm:gap-4 mb-2">
-          <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-full border-[3px] sm:border-[4px] border-[#2c2c2c] bg-white">
+          <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-full comic-border sm:comic-border-4 bg-white">
             <Image
               src={
                 resume.avatar ||
@@ -102,7 +102,7 @@ export function ResumeCard({ resume }: { resume: Resume }) {
             }}
             className={cn(
               display.className,
-              "flex items-center gap-1 sm:gap-2 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-green-400 hover:bg-green-500 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
+              "flex items-center gap-1 sm:gap-2 rounded-full comic-border-2 sm:comic-border-4 bg-green-400 hover:bg-green-500 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-normal comic-shadow-2 sm:comic-shadow-3 comic-lift text-[#2c2c2c]"
             )}
             aria-label="Like this resume"
           >
@@ -117,7 +117,7 @@ export function ResumeCard({ resume }: { resume: Resume }) {
             onClick={(e) => e.stopPropagation()}
             className={cn(
               display.className,
-              "flex items-center gap-1 sm:gap-2 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-cyan-400 hover:bg-cyan-500 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c]"
+              "flex items-center gap-1 sm:gap-2 rounded-full comic-border-2 sm:comic-border-4 bg-cyan-400 hover:bg-cyan-500 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-normal comic-shadow-2 sm:comic-shadow-3 comic-lift text-[#2c2c2c]"
             )}
           >
             <AiOutlineComment className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -131,7 +131,7 @@ export function ResumeCard({ resume }: { resume: Resume }) {
             onClick={(e) => e.stopPropagation()}
             className={cn(
               display.className,
-              "flex items-center gap-1 sm:gap-2 rounded-full border-[2px] sm:border-[3px] border-[#2c2c2c] bg-orange-400 hover:bg-orange-500 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-normal shadow-[2px_2px_0_#2c2c2c] sm:shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c] ml-auto"
+              "flex items-center gap-1 sm:gap-2 rounded-full comic-border-2 sm:comic-border-4 bg-orange-400 hover:bg-orange-500 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-normal comic-shadow-2 sm:comic-shadow-3 comic-lift text-[#2c2c2c] ml-auto"
             )}
             aria-label="Roast this resume"
           >

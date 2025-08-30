@@ -37,7 +37,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-[#97D4D5] border-[4px] border-[#2c2c2c] shadow-[8px_8px_0_#2c2c2c] rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className="bg-[#97D4D5] comic-border-4 comic-shadow-8 rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b-2 border-[#2c2c2c]/20">
           <h1
@@ -60,7 +60,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
           </h1>
           <button
             onClick={onClose}
-            className="p-2 rounded-full border-[2px] border-[#2c2c2c] bg-red-400 hover:bg-red-500 text-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all"
+            className="p-2 rounded-full comic-border-2 bg-red-400 hover:bg-red-500 text-[#2c2c2c] comic-shadow-2 comic-lift"
             aria-label="Close modal"
           >
             <FaTimes className="w-4 h-4" />
@@ -90,7 +90,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
           </div>
 
           {/* Sign-in card */}
-          <div className="border-[3px] border-[#2c2c2c] bg-[#EBDDBF] shadow-[4px_4px_0_#2c2c2c] rounded-lg p-6 mb-4">
+          <div className="comic-border bg-[#EBDDBF] comic-shadow-4 rounded-lg p-6 mb-4">
             <div className="text-center mb-4">
               <h2
                 className={cn(
@@ -113,7 +113,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
                     onClick={() => handleSignIn(provider.id)}
                     className={cn(
                       display.className,
-                      "w-full bg-green-400 hover:bg-green-500 text-black font-bold py-3 px-4 border-[3px] border-[#2c2c2c] shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform text-lg rounded-full"
+                      "w-full bg-green-400 hover:bg-green-500 text-black font-bold py-3 px-4 comic-border comic-shadow-3 comic-lift text-lg rounded-full"
                     )}
                   >
                     Sign in with {provider.name}
@@ -124,7 +124,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
 
           {/* Info cards */}
           <div className="grid gap-3 sm:grid-cols-2 mb-4">
-            <div className="border-[2px] border-[#2c2c2c] bg-[#F2D5A3] shadow-[2px_2px_0_#2c2c2c] rounded-lg p-3">
+            <div className="comic-border-2 bg-[#F2D5A3] comic-shadow-2 rounded-lg p-3">
               <h3
                 className={cn(
                   display.className,
@@ -139,7 +139,7 @@ export function SignInModal({ isOpen, onClose }: SignInModalProps) {
               </p>
             </div>
 
-            <div className="border-[2px] border-[#2c2c2c] bg-[#F8E4C6] shadow-[2px_2px_0_#2c2c2c] rounded-lg p-3">
+            <div className="comic-border-2 bg-[#F8E4C6] comic-shadow-2 rounded-lg p-3">
               <h3
                 className={cn(
                   display.className,

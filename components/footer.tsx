@@ -58,7 +58,7 @@ export default function Footer() {
               Community
             </h3>
             <div className="flex justify-center md:justify-end gap-3 mb-4">
-              <button className="p-2 rounded-full border-[2px] border-[#2c2c2c] bg-[#EBDDBF] shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform">
+              <button className="p-2 rounded-full comic-border-2 bg-[#EBDDBF] comic-shadow-2 hover:-translate-y-0.5 transition-transform">
                 <a
                   href="https://github.com/MohammadHarish52"
                   target="_blank"
@@ -68,7 +68,7 @@ export default function Footer() {
                   <FaGithub className="h-4 w-4 text-[#2c2c2c]" />
                 </a>
               </button>
-              <button className="p-2 rounded-full border-[2px] border-[#2c2c2c] bg-[#EBDDBF] shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform">
+              <button className="p-2 rounded-full comic-border-2 bg-[#EBDDBF] comic-shadow-2 hover:-translate-y-0.5 transition-transform">
                 <a
                   href="https://x.com/Haarish_52"
                   target="_blank"

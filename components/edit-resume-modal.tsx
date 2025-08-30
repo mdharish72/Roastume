@@ -143,7 +143,7 @@ export function EditResumeModal({
           </h2>
           <button
             onClick={onClose}
-            className="p-2 rounded-full border-[3px] border-[#2c2c2c] bg-red-400 hover:bg-red-500 shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all"
+            className="p-2 rounded-full comic-border bg-red-400 hover:bg-red-500 comic-shadow-3 comic-lift"
           >
             <FaTimes className="h-4 w-4 text-[#2c2c2c]" />
           </button>
@@ -167,7 +167,7 @@ export function EditResumeModal({
               }
               className={cn(
                 body.className,
-                "w-full p-3 border-[3px] border-[#2c2c2c] rounded-lg shadow-[3px_3px_0_#2c2c2c] focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
+                "w-full p-3 comic-border rounded-lg comic-shadow-3 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
               )}
               placeholder="Enter resume name..."
               required
@@ -190,7 +190,7 @@ export function EditResumeModal({
               }
               className={cn(
                 body.className,
-                "w-full p-3 border-[3px] border-[#2c2c2c] rounded-lg shadow-[3px_3px_0_#2c2c2c] focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg resize-none"
+                "w-full p-3 comic-border rounded-lg comic-shadow-3 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg resize-none"
               )}
               placeholder="Tell us about this resume..."
               rows={3}
@@ -221,7 +221,7 @@ export function EditResumeModal({
                 disabled={isUploading}
                 className={cn(
                   display.className,
-                  "w-full flex items-center justify-center gap-3 p-4 border-[3px] border-[#2c2c2c] rounded-lg bg-blue-400 hover:bg-blue-500 shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c] text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  "w-full flex items-center justify-center gap-3 p-4 comic-border rounded-lg bg-blue-400 hover:bg-blue-500 comic-shadow-3 comic-lift text-[#2c2c2c] text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 )}
               >
                 <FaUpload className="h-5 w-5" />
@@ -261,7 +261,7 @@ export function EditResumeModal({
               onClick={onClose}
               className={cn(
                 display.className,
-                "flex-1 p-3 border-[3px] border-[#2c2c2c] rounded-lg bg-gray-400 hover:bg-gray-500 shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c] text-lg"
+                "flex-1 p-3 comic-border rounded-lg bg-gray-400 hover:bg-gray-500 comic-shadow-3 comic-lift text-[#2c2c2c] text-lg"
               )}
             >
               Cancel
@@ -271,7 +271,7 @@ export function EditResumeModal({
               disabled={isSubmitting || isUploading}
               className={cn(
                 display.className,
-                "flex-1 p-3 border-[3px] border-[#2c2c2c] rounded-lg bg-green-400 hover:bg-green-500 shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-1 transition-all text-[#2c2c2c] text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                "flex-1 p-3 comic-border rounded-lg bg-green-400 hover:bg-green-500 comic-shadow-3 comic-lift text-[#2c2c2c] text-lg disabled:opacity-50 disabled:cursor-not-allowed"
               )}
             >
               {isSubmitting ? "Updating..." : "Update Resume"}

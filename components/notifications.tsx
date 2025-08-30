@@ -98,8 +98,8 @@ export function NotificationsBell({ compact = false }: { compact?: boolean }) {
         className={cn(
           display.className,
           compact
-            ? "relative flex items-center justify-center w-12 h-12 rounded-full border-[3px] border-[#2c2c2c] bg-[#F8E4C6] shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
-            : "relative flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-[#F8E4C6] px-3 py-2 text-base font-bold shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
+            ? "relative comic-icon-btn bg-peach comic-shadow-3 comic-lift"
+            : "relative comic-pill bg-peach comic-shadow-3 comic-lift"
         )}
         aria-label="Notifications"
       >
@@ -117,7 +117,7 @@ export function NotificationsBell({ compact = false }: { compact?: boolean }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-12 w-80 max-h-[60vh] overflow-auto bg-[#97D4D5] border-[3px] border-[#2c2c2c] rounded-2xl shadow-[4px_4px_0_#2c2c2c] z-50">
+        <div className="absolute right-0 top-12 w-80 max-h-[60vh] overflow-auto bg-[#97D4D5] comic-border rounded-2xl comic-shadow-4 z-50">
           <div className="flex items-center justify-between px-3 py-2 border-b border-[#2c2c2c]/20">
             <span className={cn(display.className, "text-sm font-bold")}>
               Notifications
@@ -126,7 +126,7 @@ export function NotificationsBell({ compact = false }: { compact?: boolean }) {
               onClick={handleMarkAllRead}
               className={cn(
                 display.className,
-                "flex items-center gap-2 rounded-full border-[2px] border-[#2c2c2c] bg-[#F2D5A3] px-2 py-1 text-xs font-bold shadow-[2px_2px_0_#2c2c2c]"
+                "flex items-center gap-2 rounded-full comic-border-2 bg-[#F2D5A3] px-2 py-1 text-xs font-bold comic-shadow-2"
               )}
             >
               <FaCheck className="h-3 w-3" /> Mark all read
@@ -147,7 +147,7 @@ export function NotificationsBell({ compact = false }: { compact?: boolean }) {
                   <li
                     key={n.id}
                     className={cn(
-                      "flex items-start gap-2 rounded-xl border-[2px] border-[#2c2c2c] bg-[#F8E4C6] p-3 shadow-[2px_2px_0_#2c2c2c]",
+                      "flex items-start gap-2 rounded-xl comic-border-2 bg-[#F8E4C6] p-3 comic-shadow-2",
                       !n.is_read && "bg-[#F2D5A3]"
                     )}
                   >
@@ -175,7 +175,7 @@ export function NotificationsBell({ compact = false }: { compact?: boolean }) {
                             onClick={() => handleMarkRead(n.id)}
                             className={cn(
                               display.className,
-                              "rounded-full border-[2px] border-[#2c2c2c] bg-white/70 px-2 py-0.5 text-[10px] font-bold shadow-[1px_1px_0_#2c2c2c]"
+                              "rounded-full comic-border-2 bg-white/70 px-2 py-0.5 text-[10px] font-bold shadow-[1px_1px_0_#2c2c2c]"
                             )}
                           >
                             Mark read

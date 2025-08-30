@@ -32,7 +32,7 @@ export function WelcomeModal() {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-[#97D4D5] border-[4px] border-[#2c2c2c] shadow-[8px_8px_0_#2c2c2c] rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+      <div className="bg-[#97D4D5] comic-border-4 comic-shadow-8 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b-2 border-[#2c2c2c]/20">
           <h1
@@ -56,7 +56,7 @@ export function WelcomeModal() {
           </h1>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2 rounded-full border-[2px] border-[#2c2c2c] bg-green-400 hover:bg-green-500 text-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-all"
+            className="p-2 rounded-full comic-border-2 bg-green-400 hover:bg-green-500 text-[#2c2c2c] comic-shadow-2 comic-lift"
             aria-label="Close modal"
           >
             <FaTimes className="w-4 h-4" />
@@ -92,7 +92,7 @@ export function WelcomeModal() {
 
           {/* Info cards */}
           <div className="grid gap-4 mb-6">
-            <div className="border-[3px] border-[#2c2c2c] bg-[#F2D5A3] shadow-[3px_3px_0_#2c2c2c] rounded-lg p-4">
+            <div className="comic-border bg-[#F2D5A3] comic-shadow-3 rounded-lg p-4">
               <h3
                 className={cn(
                   display.className,
@@ -107,7 +107,7 @@ export function WelcomeModal() {
               </p>
             </div>
 
-            <div className="border-[3px] border-[#2c2c2c] bg-[#F8E4C6] shadow-[3px_3px_0_#2c2c2c] rounded-lg p-4">
+            <div className="comic-border bg-[#F8E4C6] comic-shadow-3 rounded-lg p-4">
               <h3
                 className={cn(
                   display.className,
@@ -129,7 +129,7 @@ export function WelcomeModal() {
               onClick={handleSignInClick}
               className={cn(
                 display.className,
-                "w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 border-[3px] border-[#2c2c2c] shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform text-lg rounded-full"
+                "w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 comic-border comic-shadow-3 comic-lift text-lg rounded-full"
               )}
             >
               Get Started - Sign In
@@ -139,7 +139,7 @@ export function WelcomeModal() {
               onClick={() => setIsOpen(false)}
               className={cn(
                 display.className,
-                "w-full bg-[#EBDDBF] hover:bg-[#EBDDBF]/80 text-[#2c2c2c] font-bold py-2 px-4 border-[2px] border-[#2c2c2c] shadow-[2px_2px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform rounded-full"
+                "w-full bg-[#EBDDBF] hover:bg-[#EBDDBF]/80 text-[#2c2c2c] font-bold py-2 px-4 comic-border-2 comic-shadow-2 comic-lift rounded-full"
               )}
             >
               Browse Resumes First

@@ -30,7 +30,7 @@ export default function Navbar() {
               href="/"
               className={cn(
                 display.className,
-                "flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-[#EFD7B7] px-4 py-2 text-base font-bold shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
+                "comic-btn bg-cream comic-shadow-3 comic-lift"
               )}
             >
               <FaHome className="h-5 w-5" />
@@ -40,7 +40,7 @@ export default function Navbar() {
               href="/upload"
               className={cn(
                 display.className,
-                "flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-[#F8E4C6] px-4 py-2 text-base font-bold shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
+                "comic-btn bg-peach comic-shadow-3 comic-lift"
               )}
             >
               <FaUpload className="h-5 w-5" />
@@ -97,7 +97,7 @@ export default function Navbar() {
               href="/profile"
               className={cn(
                 display.className,
-                "flex items-center gap-2 rounded-full border-[3px] border-[#2c2c2c] bg-[#F2D5A3] px-4 py-2 text-base font-bold shadow-[3px_3px_0_#2c2c2c] transition-transform hover:-translate-y-0.5"
+                "comic-btn bg-yellow comic-shadow-3 comic-lift"
               )}
               aria-label="Profile"
             >
@@ -119,7 +119,7 @@ export default function Navbar() {
               }}
               className={cn(
                 display.className,
-                "flex items-center justify-center w-12 h-12 rounded-full border-[3px] border-[#2c2c2c] bg-[#EFD7B7] shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
+                "comic-icon-btn bg-cream comic-shadow-3 comic-lift"
               )}
               aria-label="Navigation menu"
             >
@@ -132,7 +132,7 @@ export default function Navbar() {
 
             {/* Navigation Dropdown */}
             {isNavOpen && (
-              <div className="absolute left-0 top-14 w-56 bg-[#97D4D5] border-[3px] border-[#2c2c2c] rounded-2xl shadow-[4px_4px_0_#2c2c2c] overflow-hidden z-50">
+              <div className="absolute left-0 top-14 w-56 bg-[#97D4D5] comic-border rounded-2xl comic-shadow-4 overflow-hidden z-50">
                 <div className="py-2">
                   <Link
                     href="/"
@@ -196,7 +196,7 @@ export default function Navbar() {
                 }}
                 className={cn(
                   display.className,
-                  "flex items-center justify-center w-12 h-12 rounded-full border-[3px] border-[#2c2c2c] bg-[#F2D5A3] shadow-[3px_3px_0_#2c2c2c] hover:-translate-y-0.5 transition-transform"
+                  "comic-icon-btn bg-yellow comic-shadow-3 comic-lift"
                 )}
                 aria-label="Profile menu"
               >
@@ -209,7 +209,7 @@ export default function Navbar() {
 
               {/* Profile Dropdown */}
               {isProfileOpen && (
-                <div className="absolute right-0 top-14 w-56 bg-[#97D4D5] border-[3px] border-[#2c2c2c] rounded-2xl shadow-[4px_4px_0_#2c2c2c] overflow-hidden z-50">
+                <div className="absolute right-0 top-14 w-56 bg-[#97D4D5] comic-border rounded-2xl comic-shadow-4 overflow-hidden z-50">
                   <div className="py-2">
                     <Link
                       href="/profile"
