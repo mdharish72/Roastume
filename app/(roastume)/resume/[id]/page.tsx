@@ -4,7 +4,7 @@ import { ComicCard } from "@/components/comic-card";
 import { CommentList } from "@/components/comment-list";
 import { body, display } from "@/lib/fonts";
 import { useRoastume } from "@/lib/store";
-import { fetchResume, likeResume } from "@/lib/api";
+import { fetchResume } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -65,19 +65,19 @@ export default function ResumeDetail() {
     resume?.fileType === "pdf" && resume.fileUrl
       ? `/api/pdf?url=${encodeURIComponent(resume.fileUrl)}`
       : undefined;
-  const PdfViewer = useMemo(
-    () =>
-      dynamic(
-        () => import("@/components/pdf-viewer").then((m) => m.PdfViewer),
-        {
-          ssr: false,
-          loading: () => (
-            <div className="p-4 text-center">Preparing viewer…</div>
-          ),
-        }
-      ),
-    []
-  );
+
+  // Only prepare the PDF viewer when we actually have a PDF to render
+  const PdfViewer = useMemo(() => {
+    if (!pdfUrl) return null;
+    return dynamic(
+      () => import("@/components/pdf-viewer").then((m) => m.PdfViewer),
+      {
+        ssr: false,
+        loading: () => <div className="p-4 text-center">Preparing viewer…</div>,
+      }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pdfUrl]);
 
   if (loading) {
     return <div className="p-4">Loading…</div>;
@@ -151,7 +151,7 @@ export default function ResumeDetail() {
               </div>
             ) : (
               <div className="grid gap-2">
-                {pdfUrl ? (
+                {pdfUrl && PdfViewer ? (
                   <PdfViewer url={pdfUrl} />
                 ) : (
                   <div className="p-4 text-center">No PDF URL available.</div>
