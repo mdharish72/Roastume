@@ -11,7 +11,7 @@ export default function Footer() {
     <footer className="mt-8 border-t-4 border-[#2c2c2c] bg-[#97D4D5]">
       <div className="mx-auto max-w-6xl px-4 py-8">
         {/* Main footer content */}
-        <div className="grid gap-8 md:grid-cols-2 justify-between items-center">
+        <div className="grid gap-8 md:grid-cols-2 justify-center items-center">
           {/* Brand section */}
           <div className="text-center md:text-left">
             <Link
