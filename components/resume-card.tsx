@@ -25,7 +25,7 @@ export function ResumeCard({ resume }: { resume: Resume }) {
           router.push(`/resume/${resume.id}`);
         }
       }}
-      className="cursor-pointer"
+      className="cursor-pointer h-full"
     >
       <ComicCard
         variant="cream"

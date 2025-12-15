@@ -1,6 +1,7 @@
 "use client";
 
 import { ComicCard } from "@/components/comic-card";
+import { HottestResumes } from "@/components/hottest-resumes";
 import { ResumeCard } from "@/components/resume-card";
 import { SearchBar } from "@/components/search-bar";
 import { WelcomeModal } from "@/components/welcome-modal";
@@ -130,6 +131,8 @@ export default function Page() {
           </div>
         </ComicCard>
       )}
+
+      <HottestResumes />
 
       {resumes.length === 0 ? (
         <ComicCard className="p-8 text-center">

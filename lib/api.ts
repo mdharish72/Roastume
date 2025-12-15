@@ -66,6 +66,18 @@ export async function fetchResumes(
   return { resumes: data.resumes, total: data.total ?? data.resumes.length };
 }
 
+export async function fetchHotResumes(
+  limit: number = 3
+): Promise<{ resumes: ApiResume[] }> {
+  const params = new URLSearchParams({ limit: String(limit) });
+  const response = await fetch(`/api/resumes/hot?${params.toString()}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch hot resumes");
+  }
+  const data = await response.json();
+  return { resumes: (data.resumes ?? []) as ApiResume[] };
+}
+
 export async function fetchResume(id: string): Promise<ApiResume> {
   const response = await fetch(`/api/resumes/${id}`);
   if (!response.ok) {
