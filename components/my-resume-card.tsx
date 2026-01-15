@@ -71,7 +71,7 @@ export function MyResumeCard({ resume, onEdit }: MyResumeCardProps) {
             <p
               className={cn(
                 body.className,
-                "text-sm sm:text-base leading-relaxed text-[#2c2c2c] italic line-clamp-2"
+                "text-sm sm:text-base leading-relaxed text-[#2c2c2c] italic line-clamp-2 overflow-hidden break-all"
               )}
             >
               {resume.blurb || "No description provided."}

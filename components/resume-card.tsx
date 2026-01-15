@@ -62,16 +62,11 @@ export function ResumeCard({ resume }: { resume: Resume }) {
             <p
               className={cn(
                 body.className,
-                "text-sm sm:text-base leading-relaxed text-[#2c2c2c] italic line-clamp-2"
+                "text-sm sm:text-base leading-relaxed text-[#2c2c2c] italic line-clamp-2 overflow-hidden break-all"
               )}
             >
               {resume.blurb || "No description provided."}
             </p>
-            {resume.blurb && resume.blurb.length > 140 && (
-              <span className="mt-1 inline-block text-xs text-[#2c2c2c]/70">
-                …
-              </span>
-            )}
             <div className="mt-2 sm:mt-3 flex items-center gap-2 text-xs sm:text-sm text-[#2c2c2c]/70">
               <span className="flex items-center">
                 <FaCalendar className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />{" "}
